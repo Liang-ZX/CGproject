@@ -25,7 +25,19 @@ void Draw_Leg()
 
 void Draw_Scene()
 {
-	
+	Sphere sp1 = Sphere(1);
+	Sphere sp2 = Sphere(2);
+
+	sp1.setColor(1.0, 0.0, 1.0);
+	sp1.setPosition(1.1, 0.0, 0.0);
+	sp1.setRadius(1);
+
+	sp2.setColor(1.0, 1.0, 1.0);
+	sp2.setPosition(-1.0, 0.0, 0.0);
+	sp2.setRadius(0.5);
+
+	sp1.Draw(150, 200);
+	sp2.Draw(150, 200);
 }
 
 static void updateView(int width, int height)
@@ -70,7 +82,7 @@ float center[] = {0, 0, 0};
 void redraw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0, 0, 0, 0); //±³¾°ÑÕÉ«
+	glClearColor(0, 0, 0, 0); 
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
 	gluLookAt(eye[0], eye[1], eye[2],
@@ -83,11 +95,14 @@ void redraw()
 	if (gameState == GAMESTART)
 	{
 		gameState = INITIAL;
-		//¿ªÊ¼½çÃæ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+
+		// used to test the MAINWINDOW
+		gameState = MAINWINDOW;
 	}
 	else if (gameState == MAINWINDOW)
 	{
-		//Ö÷½çÃæ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Draw_Scene();						// Draw Scene
 	}
 	else if (gameState == GAMEEND)

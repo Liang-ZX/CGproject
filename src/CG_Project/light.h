@@ -5,9 +5,9 @@ class Light
 private:
 	int id;
 	GLfloat position[4];
-	GLfloat ambient[4];		//环境光
-	GLfloat diffuse[4];		//漫反射
-	GLfloat specular[4];	//镜面反射
+	GLfloat ambient[4];		//锟斤拷锟斤拷锟斤拷
+	GLfloat diffuse[4];		//锟斤拷锟斤拷锟斤拷
+	GLfloat specular[4];	//锟斤拷锟芥反锟斤拷
 
 public:
 	Light(int id)
@@ -21,7 +21,7 @@ public:
 			specular[i] = 0.0f;
 		}
 	}
-	// type为0时，表示(x,y,z)方向的方向光源；type为1时，表示(x,y,z)方向的点光源
+	// type为0时锟斤拷锟斤拷示(x,y,z)锟斤拷锟斤拷姆锟斤拷锟斤拷源锟斤拷type为1时锟斤拷锟斤拷示(x,y,z)锟斤拷锟斤拷牡锟斤拷源
 	void setPosition(GLfloat x, GLfloat y, GLfloat z, GLfloat type)
 	{
 		position[0] = x;
@@ -29,7 +29,7 @@ public:
 		position[2] = z;
 		position[3] = type;
 	}
-	//a是透明度
+	//a锟斤拷透锟斤拷锟斤拷
 	void setAmbient(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
 	{
 		ambient[0] = r;

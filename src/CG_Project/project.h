@@ -9,7 +9,10 @@
 #include "initialize.h"
 #include "define.h"
 
-//窗口大小
+#include "sphere.h"
+#include "stick.h"
+
+//锟斤拷锟节达拷小
 #define WIDTH 600
 #define HEIGHT 600
 
