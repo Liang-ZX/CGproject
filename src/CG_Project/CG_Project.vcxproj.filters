@@ -18,9 +18,6 @@
     <ClInclude Include="initialize.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="light.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -51,18 +48,33 @@
     <ClInclude Include="material.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glew.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="view.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="initialize.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

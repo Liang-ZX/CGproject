@@ -108,4 +108,9 @@ public:
 
 		glPopMatrix();
 	}
+
+	MATERIAL mat(void)
+	{
+		return spMaterial;
+	}
 };

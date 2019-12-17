@@ -6,7 +6,7 @@ void key(unsigned char k, int x, int y)
 	{
 	case 27:
 	case 'q': {exit(0); break; }
-	case 'p': {bPersp = !bPersp; reshape(wHeight, wWidth); break; }
+	case 'p': {bPersp = !bPersp; break; }
 
 	case ' ': {bAnim = !bAnim; break; }
 

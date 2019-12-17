@@ -12,9 +12,24 @@ int wWidth = 0;
 
 int gameState = GAMESTART;
 
+//texture
+string texpath1="texturebmp\\test.bmp";
+
 void initialize(void)
 {
 	initLight();
+}
+
+void SetTexture(string path, Sphere sp)
+{
+	Texture tex = Texture(path);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, tex.getID());
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, sp.mat().diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, sp.mat().specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, sp.mat().ambient);
+	glMateriali(GL_FRONT, GL_SHININESS, sp.mat().shininess);
 }
 
 void Draw_Leg()
@@ -28,7 +43,7 @@ void Draw_Scene()
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
 
-	sp1.setColor(0.0, 0.0, 1.0);
+	sp1.setColor(1.0, 1.0, 1.0);
 	sp1.setPosition(1.1, 0.0, 0.0);
 	sp1.setRadius(1);
 
@@ -36,7 +51,10 @@ void Draw_Scene()
 	sp2.setPosition(-1.0, 0.0, 0.0);
 	sp2.setRadius(0.5);
 
+	SetTexture(texpath1, sp1);
 	sp1.Draw(150, 200);
+	glDisable(GL_TEXTURE_2D);
+
 	sp2.Draw(150, 200);
 }
 
