@@ -28,11 +28,11 @@ void Draw_Scene()
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
 
-	sp1.setColor(1.0, 0.0, 1.0);
+	sp1.setColor(0.0, 0.0, 1.0);
 	sp1.setPosition(1.1, 0.0, 0.0);
 	sp1.setRadius(1);
 
-	sp2.setColor(1.0, 1.0, 1.0);
+	sp2.setColor(0.0, 1.0, 1.0);
 	sp2.setPosition(-1.0, 0.0, 0.0);
 	sp2.setRadius(0.5);
 

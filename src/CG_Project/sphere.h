@@ -1,5 +1,7 @@
 #include "glut.h"
 #include "math.h"
+#include "material.h"
+
 class Sphere
 {
 private:
@@ -7,6 +9,7 @@ private:
 	GLfloat position[3];
 	GLfloat color[3];
 	GLfloat radius;
+	MATERIAL spMaterial;
 	
 	// binding light,texture,etc to be added
 
@@ -19,6 +22,19 @@ public:
 			color[i] = 0.0f;
 		}
 		radius = 0.0f;
+		spMaterial.ambient[0] = 0.1;
+		spMaterial.ambient[1] = 0.1;
+		spMaterial.ambient[2] = 0.1;
+		spMaterial.ambient[3] = 1.0;
+		spMaterial.diffuse[0] = 1.0;
+		spMaterial.diffuse[1] = 1.0;
+		spMaterial.diffuse[2] = 1.0;
+		spMaterial.diffuse[3] = 1.0;
+		spMaterial.specular[0] = 0.0;
+		spMaterial.specular[1] = 0.0;
+		spMaterial.specular[2] = 0.0;
+		spMaterial.specular[3] = 1.0;
+		spMaterial.shininess = 100.0;
 	}
 
 	void setPosition(GLfloat x, GLfloat y, GLfloat z)
@@ -41,7 +57,7 @@ public:
 	void Draw(GLint iSlices, GLint iStacks)
 	{
 		glPushMatrix();
-
+		glEnable(GL_COLOR_MATERIAL);
 		glTranslatef(position[0], position[1], position[2]);
 		glColor3f(color[0], color[1], color[2]);
 
@@ -93,4 +109,3 @@ public:
 		glPopMatrix();
 	}
 };
-
