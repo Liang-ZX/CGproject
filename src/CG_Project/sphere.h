@@ -11,9 +11,10 @@ private:
 	GLfloat radius;
 	MATERIAL spMaterial;
 	
-	// binding light,texture,etc to be added
+	// binding light,etc to be added
 
 public:
+	Sphere(){};
 	Sphere(int id)
 	{
 		this->id = id;
@@ -109,8 +110,8 @@ public:
 		glPopMatrix();
 	}
 
-	MATERIAL mat(void)
-	{
-		return spMaterial;
-	}
+	GLfloat getX() { return position[0]; }
+	GLfloat getY() { return position[1]; }
+	GLfloat getZ() { return position[2]; }
+	MATERIAL mat(){ return spMaterial;}
 };

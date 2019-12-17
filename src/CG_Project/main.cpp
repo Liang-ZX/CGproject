@@ -54,8 +54,12 @@ void Draw_Scene()
 	SetTexture(texpath1, sp1);
 	sp1.Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
-
 	sp2.Draw(150, 200);
+
+	Stick st = Stick(1, sp1, sp2);
+	st.setColor(1.0, 0.0, 0.0);
+	st.setRadius(0.13);
+	st.Draw(300,300);
 }
 
 static void updateView(int width, int height)
