@@ -4,7 +4,7 @@ float fTranslate = 0.0f;
 float fRotate = 0.0f;
 float fScale = 1.0f;	// set inital scale value to 1.0f
 
-bool bPersp = false;
+bool bPersp = true;
 bool bAnim = false;
 
 int wHeight = 0;
@@ -13,14 +13,16 @@ int wWidth = 0;
 int gameState = GAMESTART;
 
 //texture
-string texpath1="texturebmp\\test.bmp";
+string sticktex="texturebmp\\stick.bmp";
+string spheretex1 = "texturebmp\\sun.bmp";
+string spheretex2 = "texturebmp\\earth.bmp";
 
 void initialize(void)
 {
 	initLight();
 }
 
-void SetTexture(string path, Sphere sp)
+void SetSphereTexture(string path, Sphere sp)
 {
 	Texture tex = Texture(path);
 	glEnable(GL_TEXTURE_2D);
@@ -30,6 +32,18 @@ void SetTexture(string path, Sphere sp)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, sp.mat().specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, sp.mat().ambient);
 	glMateriali(GL_FRONT, GL_SHININESS, sp.mat().shininess);
+}
+
+void SetStickTexture(string path, Stick st)
+{
+	Texture tex = Texture(path);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, tex.getID());
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, st.mat().diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, st.mat().specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, st.mat().ambient);
+	glMateriali(GL_FRONT, GL_SHININESS, st.mat().shininess);
 }
 
 void Draw_Leg()
@@ -47,19 +61,25 @@ void Draw_Scene()
 	sp1.setPosition(1.1, 0.0, 0.0);
 	sp1.setRadius(1);
 
-	sp2.setColor(0.0, 1.0, 1.0);
+	sp2.setColor(1.0, 1.0, 1.0);
 	sp2.setPosition(-1.0, 0.0, 0.0);
 	sp2.setRadius(0.5);
 
-	SetTexture(texpath1, sp1);
+	SetSphereTexture(spheretex1, sp1);
 	sp1.Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
+
+	SetSphereTexture(spheretex2, sp2);
 	sp2.Draw(150, 200);
+	glDisable(GL_TEXTURE_2D);
 
 	Stick st = Stick(1, sp1, sp2);
-	st.setColor(1.0, 0.0, 0.0);
+	st.setColor(1.0, 1.0, 1.0);
 	st.setRadius(0.13);
+
+	SetStickTexture(sticktex, st);
 	st.Draw(300,300);
+	glDisable(GL_TEXTURE_2D);
 }
 
 static void updateView(int width, int height)
