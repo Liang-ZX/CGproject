@@ -10,9 +10,19 @@ bool bAnim = false;
 int wHeight = 0;
 int wWidth = 0;
 
+//fullscreen
+bool g_fullscreen = false;// 全屏标志缺省，缺省设定成全屏模式
+int g_window_width = 600;
+int g_window_height = 600;
+
+//gamestate
 int gameState = GAMESTART;
 
+//background
+SkyBox sky;
+
 //texture
+string backgroundtex = "texturebmp\\stick.bmp";
 string sticktex="texturebmp\\stick.bmp";
 string spheretex1 = "texturebmp\\sun.bmp";
 string spheretex2 = "texturebmp\\earth.bmp";
@@ -20,6 +30,23 @@ string spheretex2 = "texturebmp\\earth.bmp";
 void initialize(void)
 {
 	initLight();
+}
+
+void SpecialKeys(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_F1:
+		g_fullscreen = !g_fullscreen;
+		if (g_fullscreen)
+		{
+			g_window_width = glutGet(GLUT_WINDOW_WIDTH);
+			g_window_height = glutGet(GLUT_WINDOW_HEIGHT);
+			glutFullScreen();
+		}
+		else glutReshapeWindow(g_window_width, g_window_height);
+		break;
+	}
 }
 
 void SetSphereTexture(string path, Sphere sp)
@@ -54,6 +81,9 @@ void Draw_Leg()
 
 void Draw_Scene()
 {
+	//baclground
+	Background(backgroundtex);
+
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
 
@@ -137,15 +167,12 @@ void redraw()
 	if (gameState == GAMESTART)
 	{
 		gameState = INITIAL;
-		//��ʼ����
-
 		// used to test the MAINWINDOW
 		gameState = MAINWINDOW;
 	}
 	else if (gameState == MAINWINDOW)
 	{
-		//������
-		Draw_Scene();						// Draw Scene
+		Draw_Scene();						// Draw Scene	
 	}
 	else if (gameState == GAMEEND)
 	{
@@ -161,6 +188,7 @@ int main (int argc,  char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
+	glutInitWindowPosition(300, 100);
 	glutInitWindowSize(WIDTH,HEIGHT);
 	int windowHandle = glutCreateWindow("3D Material Structure");
 
@@ -171,6 +199,7 @@ int main (int argc,  char *argv[])
 	glutMouseFunc(MousFunc);
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
+	glutSpecialFunc(SpecialKeys);
 
 	glutMainLoop();
 	return 0;

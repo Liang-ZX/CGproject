@@ -115,6 +115,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="background.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="gl.h" />
     <ClInclude Include="glew.h" />
@@ -129,10 +131,9 @@
     <ClInclude Include="sphere.h" />
     <ClInclude Include="stick.h" />
     <ClInclude Include="texture.h" />
-    <ClInclude Include="vector.h" />
-    <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="initialize.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />

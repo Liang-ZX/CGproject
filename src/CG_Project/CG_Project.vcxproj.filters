@@ -54,13 +54,13 @@
     <ClInclude Include="glew.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="vector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="view.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -75,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="background.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #define _PROJECT_H
 
 #include "texture.h"
+#include "background.h"
 #include "stdlib.h"
 #include "mouse.h"
 #include "glut.h"
