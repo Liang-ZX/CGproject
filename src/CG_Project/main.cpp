@@ -4,23 +4,52 @@ float fTranslate = 0.0f;
 float fRotate = 0.0f;
 float fScale = 1.0f;	// set inital scale value to 1.0f
 
-bool bPersp = false;
+bool bPersp = true;
 bool bAnim = false;
 
 int wHeight = 0;
 int wWidth = 0;
 
+//fullscreen
+bool g_fullscreen = false;// 全屏标志缺省，缺省设定成全屏模式
+int g_window_width = 600;
+int g_window_height = 600;
+
+//gamestate
 int gameState = GAMESTART;
 
+//background
+SkyBox sky;
+
 //texture
-string texpath1="texturebmp\\test.bmp";
+string backgroundtex = "texturebmp\\stick.bmp";
+string sticktex="texturebmp\\stick.bmp";
+string spheretex1 = "texturebmp\\sun.bmp";
+string spheretex2 = "texturebmp\\earth.bmp";
 
 void initialize(void)
 {
 	initLight();
 }
 
-void SetTexture(string path, Sphere sp)
+void SpecialKeys(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_F1:
+		g_fullscreen = !g_fullscreen;
+		if (g_fullscreen)
+		{
+			g_window_width = glutGet(GLUT_WINDOW_WIDTH);
+			g_window_height = glutGet(GLUT_WINDOW_HEIGHT);
+			glutFullScreen();
+		}
+		else glutReshapeWindow(g_window_width, g_window_height);
+		break;
+	}
+}
+
+void SetSphereTexture(string path, Sphere sp)
 {
 	Texture tex = Texture(path);
 	glEnable(GL_TEXTURE_2D);
@@ -32,6 +61,18 @@ void SetTexture(string path, Sphere sp)
 	glMateriali(GL_FRONT, GL_SHININESS, sp.mat().shininess);
 }
 
+void SetStickTexture(string path, Stick st)
+{
+	Texture tex = Texture(path);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, tex.getID());
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, st.mat().diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, st.mat().specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, st.mat().ambient);
+	glMateriali(GL_FRONT, GL_SHININESS, st.mat().shininess);
+}
+
 void Draw_Leg()
 {
 	glScalef(1, 1, 3);
@@ -40,6 +81,9 @@ void Draw_Leg()
 
 void Draw_Scene()
 {
+	//baclground
+	Background(backgroundtex);
+
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
 
@@ -47,19 +91,25 @@ void Draw_Scene()
 	sp1.setPosition(1.1, 0.0, 0.0);
 	sp1.setRadius(1);
 
-	sp2.setColor(0.0, 1.0, 1.0);
+	sp2.setColor(1.0, 1.0, 1.0);
 	sp2.setPosition(-1.0, 0.0, 0.0);
 	sp2.setRadius(0.5);
 
-	SetTexture(texpath1, sp1);
+	SetSphereTexture(spheretex1, sp1);
 	sp1.Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
+
+	SetSphereTexture(spheretex2, sp2);
 	sp2.Draw(150, 200);
+	glDisable(GL_TEXTURE_2D);
 
 	Stick st = Stick(1, sp1, sp2);
-	st.setColor(1.0, 0.0, 0.0);
+	st.setColor(1.0, 1.0, 1.0);
 	st.setRadius(0.13);
+
+	SetStickTexture(sticktex, st);
 	st.Draw(300,300);
+	glDisable(GL_TEXTURE_2D);
 }
 
 static void updateView(int width, int height)
@@ -117,15 +167,12 @@ void redraw()
 	if (gameState == GAMESTART)
 	{
 		gameState = INITIAL;
-		//��ʼ����
-
 		// used to test the MAINWINDOW
 		gameState = MAINWINDOW;
 	}
 	else if (gameState == MAINWINDOW)
 	{
-		//������
-		Draw_Scene();						// Draw Scene
+		Draw_Scene();						// Draw Scene	
 	}
 	else if (gameState == GAMEEND)
 	{
@@ -141,6 +188,7 @@ int main (int argc,  char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
+	glutInitWindowPosition(300, 100);
 	glutInitWindowSize(WIDTH,HEIGHT);
 	int windowHandle = glutCreateWindow("3D Material Structure");
 
@@ -151,6 +199,7 @@ int main (int argc,  char *argv[])
 	glutMouseFunc(MousFunc);
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
+	glutSpecialFunc(SpecialKeys);
 
 	glutMainLoop();
 	return 0;
