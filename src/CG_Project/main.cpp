@@ -83,6 +83,7 @@ void Draw_Scene()
 {
 	//baclground
 	Background(backgroundtex);
+	commandbox.create();
 
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
@@ -189,7 +190,7 @@ int main (int argc,  char *argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 	glutInitWindowPosition(300, 100);
-	glutInitWindowSize(WIDTH,HEIGHT);
+	glutInitWindowSize(g_window_width, g_window_height);
 	int windowHandle = glutCreateWindow("3D Material Structure");
 
 	initialize();

@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="commandbox.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="gl.h" />
@@ -134,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="commandbox.cpp" />
     <ClCompile Include="initialize.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />
