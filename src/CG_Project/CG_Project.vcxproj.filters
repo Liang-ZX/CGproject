@@ -63,6 +63,9 @@
     <ClInclude Include="background.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="commandbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="initialize.cpp">
@@ -78,6 +81,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="background.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commandbox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

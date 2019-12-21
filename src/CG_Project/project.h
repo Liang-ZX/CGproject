@@ -13,11 +13,12 @@
 
 #include "sphere.h"
 #include "stick.h"
+#include "commandbox.h"
 //#include "view.h"
 
 //���ڴ�С
-#define WIDTH 600
-#define HEIGHT 600
+extern int g_window_width;
+extern int g_window_height;
 
 extern float eye[3];
 extern float center[3];
@@ -26,6 +27,8 @@ extern int wWidth;
 extern bool bPersp;
 extern bool bAnim;
 extern int gameState;
+
+extern CommandBox commandbox;
 
 void initialize(void);
 void reshape(int width, int height);
