@@ -12,7 +12,7 @@ int wWidth = 0;
 
 //fullscreen
 bool g_fullscreen = false;// 全屏标志缺省，缺省设定成全屏模式
-int g_window_width = 600;
+int g_window_width = 700;
 int g_window_height = 600;
 
 //gamestate
@@ -81,9 +81,9 @@ void Draw_Leg()
 
 void Draw_Scene()
 {
+	glShadeModel(GL_SMOOTH);
 	//baclground
 	Background(backgroundtex);
-	commandbox.create();
 
 	Sphere sp1 = Sphere(1);
 	Sphere sp2 = Sphere(2);
@@ -113,22 +113,37 @@ void Draw_Scene()
 	glDisable(GL_TEXTURE_2D);
 }
 
-static void updateView(int width, int height)
+void updateView(int width, int height)
 {
-	glViewport(0,0,width,height);						// Reset The Current Viewport
+	g_window_width = width;
+	g_window_height = height;
+	int draw_width = commandbox.box_percent * width;
 
 	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
 	glLoadIdentity();									// Reset The Projection Matrix
 
-	float whRatio = (GLfloat)width/(GLfloat)height;
+	float whRatio = (GLfloat)draw_width/(GLfloat)height;
 	
 	if (bPersp){
 		gluPerspective(75.0f, whRatio, 1.0f, 50.0f);
 	}
-	else
-	    glOrtho(-3 ,3, -3, 3,-100,100);
-
+	else {
+		if (draw_width <= height)
+		{
+			gluOrtho2D(-3, 3, -3, 3.0/whRatio);			
+		}
+		else {
+			gluOrtho2D(-3, 3*whRatio, -3, 3);
+		}
+	}
 	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
+	if (draw_width <= height)
+	{
+		glViewport(0, 0, draw_width, height);
+	}
+	else {
+		glViewport(0, 0, draw_width, height);
+	}
 }
 
 void reshape(int width, int height)
@@ -141,7 +156,7 @@ void reshape(int width, int height)
 	wHeight = height;
 	wWidth = width;
 
-	updateView(wHeight, wWidth);
+	updateView(wWidth, wHeight);
 }
 
 void idle()
@@ -179,7 +194,7 @@ void redraw()
 	{
 
 	}
-
+	commandbox.create();
 	glutSwapBuffers();
 }
 

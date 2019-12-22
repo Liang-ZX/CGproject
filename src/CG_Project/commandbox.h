@@ -4,12 +4,13 @@
 class CommandBox
 {
 private:
-	int x;
-	int y;
-	int width;
-	int height;
-
+	GLint x;
+	GLint y;
+	GLint width;
+	GLint height;
+	void updateBox();
 public:
+	GLfloat box_percent;
 	CommandBox();
 	void create();
 	
