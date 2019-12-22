@@ -38,5 +38,12 @@ void key(unsigned char k, int x, int y)
 		eye[2] += 0.1;
 		break;
 	}
+	case 'f': {
+		time_t ttime;
+		struct tm* image;
+		time(&ttime);
+		image = localtime(&ttime);
+		screenshot::saveImg(image);
+	}
 	}
 }

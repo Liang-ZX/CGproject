@@ -1,4 +1,4 @@
-#include "mouse.h"
+#include "project.h"
 
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;

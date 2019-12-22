@@ -10,10 +10,20 @@
 #include "light.h"
 #include "initialize.h"
 #include "define.h"
+#include <vector>
+#include <string.h>
+#include <cstdio>
+#include <ctime>
+#include "SOIL.h"
+#include "screenshot.h"
 
 #include "sphere.h"
 #include "stick.h"
 #include "commandbox.h"
+#include "glew.h"
+#include "windows.h"
+
+using namespace std;
 //#include "view.h"
 
 //screen height and width

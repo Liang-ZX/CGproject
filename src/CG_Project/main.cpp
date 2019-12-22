@@ -29,7 +29,7 @@ float radius2 = 0.5;
 
 //texture
 string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
-						"texturebmp\\gamestart.bmp" };
+						"texturebmp\\start_image.bmp" };
 string backgroundtex = texture[0];
 string sticktex = texture[0];
 string spheretex1 = texture[1];
