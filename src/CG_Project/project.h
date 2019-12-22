@@ -16,7 +16,7 @@
 #include "commandbox.h"
 //#include "view.h"
 
-//���ڴ�С
+//screen height and width
 extern int g_window_width;
 extern int g_window_height;
 
@@ -34,5 +34,6 @@ void initialize(void);
 void reshape(int width, int height);
 void idle();
 void redraw();
+void updateView(int width, int height);
 
 #endif
