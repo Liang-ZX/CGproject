@@ -4,7 +4,7 @@ SkyBox skybox;
 
 void Background(string path)
 {
-	GLfloat size = 20.0;
+	GLfloat size = 15.0;
 	
 	//sphere mode
 	if (skybox.mode==sphere)

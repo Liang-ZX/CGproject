@@ -21,15 +21,77 @@ int gameState = GAMESTART;
 //background
 SkyBox sky;
 
+//Sphere
+Sphere sp1 = Sphere(1);
+Sphere sp2 = Sphere(2);
+float radius1 = 1;
+float radius2 = 0.5;
+
 //texture
-string backgroundtex = "texturebmp\\stick.bmp";
-string sticktex="texturebmp\\stick.bmp";
-string spheretex1 = "texturebmp\\sun.bmp";
-string spheretex2 = "texturebmp\\earth.bmp";
+string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
+						"texturebmp\\gamestart.bmp" };
+string backgroundtex = texture[0];
+string sticktex = texture[0];
+string spheretex1 = texture[1];
+string spheretex2 = texture[2];
 
 void initialize(void)
 {
 	initLight();
+}
+
+void main_menu(int value) {
+
+	if (value == 1) {//clear screen
+		glClear(GL_COLOR_BUFFER_BIT);
+		glutSwapBuffers();
+		if (gameState != GAMESTART)
+		{
+			gameState = INITIAL;
+		}
+	}
+
+	if (value == 2) {//start draw
+		glClear(GL_COLOR_BUFFER_BIT);
+		glutSwapBuffers();
+		gameState = MAINWINDOW;
+	}
+
+	if (value == 20) {//exit
+		exit(0);
+	}
+
+}
+
+void texture_menu(int value)
+{
+	switch (value)
+	{
+	case 4:
+		spheretex1 = texture[2];
+		spheretex2 = texture[1];
+		break;
+	case 5:
+		spheretex1 = texture[1];
+		spheretex2 = texture[2];
+		break;
+	}
+}
+
+void size_menu(int value)
+{
+	switch (value)
+	{
+	case 10:
+		radius1 += 0.1;
+		break;
+	case 11:
+		if (radius1 > 0.4)
+		{
+			radius1 -= 0.1;
+		}
+		break;
+	}
 }
 
 void SpecialKeys(int key, int x, int y)
@@ -47,6 +109,30 @@ void SpecialKeys(int key, int x, int y)
 		else glutReshapeWindow(g_window_width, g_window_height);
 		break;
 	}
+}
+
+void Start()
+{
+	Texture tex = Texture(texture[3]);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, tex.getID());
+	glTranslatef(1, 0, 0);
+	glScalef(15, 10, 1);
+
+	glBegin(GL_QUADS);
+	{
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, 0.5f);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(0.5f, -0.5f, 0.5f);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, 0.5f);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(-0.5f, 0.5f, 0.5f);
+	}
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void SetSphereTexture(string path, Sphere sp)
@@ -85,12 +171,9 @@ void Draw_Scene()
 	//baclground
 	Background(backgroundtex);
 
-	Sphere sp1 = Sphere(1);
-	Sphere sp2 = Sphere(2);
-
 	sp1.setColor(1.0, 1.0, 1.0);
 	sp1.setPosition(1.1, 0.0, 0.0);
-	sp1.setRadius(1);
+	sp1.setRadius(radius1);
 
 	sp2.setColor(1.0, 1.0, 1.0);
 	sp2.setPosition(-1.0, 0.0, 0.0);
@@ -109,7 +192,7 @@ void Draw_Scene()
 	st.setRadius(0.13);
 
 	SetStickTexture(sticktex, st);
-	st.Draw(300,300);
+	st.Draw(300, 300);
 	glDisable(GL_TEXTURE_2D);
 }
 
@@ -122,18 +205,18 @@ void updateView(int width, int height)
 	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
 	glLoadIdentity();									// Reset The Projection Matrix
 
-	float whRatio = (GLfloat)draw_width/(GLfloat)height;
-	
-	if (bPersp){
+	float whRatio = (GLfloat)draw_width / (GLfloat)height;
+
+	if (bPersp) {
 		gluPerspective(75.0f, whRatio, 1.0f, 50.0f);
 	}
 	else {
 		if (draw_width <= height)
 		{
-			gluOrtho2D(-3, 3, -3, 3.0/whRatio);			
+			gluOrtho2D(-3, 3, -3, 3.0 / whRatio);
 		}
 		else {
-			gluOrtho2D(-3, 3*whRatio, -3, 3);
+			gluOrtho2D(-3, 3 * whRatio, -3, 3);
 		}
 	}
 	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
@@ -148,9 +231,9 @@ void updateView(int width, int height)
 
 void reshape(int width, int height)
 {
-	if (height==0)										// Prevent A Divide By Zero By
+	if (height == 0)										// Prevent A Divide By Zero By
 	{
-		height=1;										// Making Height Equal One
+		height = 1;										// Making Height Equal One
 	}
 
 	wHeight = height;
@@ -164,43 +247,44 @@ void idle()
 	glutPostRedisplay();
 }
 
-float eye[] = {0, 0, 8};
-float center[] = {0, 0, 0};
+float eye[] = { 0, 0, 8 };
+float center[] = { 0, 0, 0 };
 
 void redraw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0, 0, 0, 0); 
+	glClearColor(0, 0, 0, 0);
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
 	gluLookAt(eye[0], eye[1], eye[2],
 		center[0], center[1], center[2],
-		0, 1, 0);				
+		0, 1, 0);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	if (gameState == GAMESTART)
 	{
-		gameState = INITIAL;
+		//gameState = INITIAL;
+		Start();
+
 		// used to test the MAINWINDOW
-		gameState = MAINWINDOW;
+		//gameState = MAINWINDOW;
 	}
 	else if (gameState == MAINWINDOW)
 	{
 		Draw_Scene();						// Draw Scene	
+		commandbox.create();
 	}
 	else if (gameState == GAMEEND)
 	{
 
 	}
-	commandbox.create();
+
 	glutSwapBuffers();
 }
 
-
-
-int main (int argc,  char *argv[])
+int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
@@ -210,12 +294,31 @@ int main (int argc,  char *argv[])
 
 	initialize();
 	glutDisplayFunc(redraw);
-	glutReshapeFunc(reshape);	
+	glutReshapeFunc(reshape);
 	glutKeyboardFunc(key);
 	glutMouseFunc(MousFunc);
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
 	glutSpecialFunc(SpecialKeys);
+
+	//rightbutton menu
+	int sub_menu1 = glutCreateMenu(size_menu);
+	glutAddMenuEntry("Increase", 10);
+	glutAddMenuEntry("Decrease", 11);
+
+	int sub_menu2 = glutCreateMenu(texture_menu);
+	glutAddMenuEntry("sun texture", 4);
+	glutAddMenuEntry("earth texture", 5);
+
+	glutCreateMenu(main_menu);//注册菜单回调函数
+
+	glutAddMenuEntry("Clear Screen", 1);//添加菜单项
+	glutAddMenuEntry("Start Game", 2);
+	glutAddSubMenu("Size", sub_menu1);
+	glutAddSubMenu("Texture", sub_menu2);
+	glutAddMenuEntry("Exit", 20);
+
+	glutAttachMenu(GLUT_RIGHT_BUTTON);//把当前菜单注册到指定的鼠标键
 
 	glutMainLoop();
 	return 0;
