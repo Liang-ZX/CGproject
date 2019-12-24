@@ -22,6 +22,7 @@
 #include "commandbox.h"
 #include "glew.h"
 #include "windows.h"
+#include "button.h"
 
 using namespace std;
 //#include "view.h"
@@ -45,5 +46,6 @@ void reshape(int width, int height);
 void idle();
 void redraw();
 void updateView(int width, int height);
+void Start();
 
 #endif

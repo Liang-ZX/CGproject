@@ -1,7 +1,5 @@
-#include "project.h"
+#include "commandbox.h"
 
-extern int g_window_width;
-extern int g_window_height;
 CommandBox commandbox;
 
 CommandBox::CommandBox()
@@ -26,10 +24,11 @@ void CommandBox::create()
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
+	glEnable(GL_DEPTH);
 	glDisable(GL_LIGHTING);
 	glColor3f(1.0f, 0.0f, 0.0f);
-	//glRectf(this->x, this->y, this->x+this->width, this->y+this->height);
 	glRectf(0, 0, 10, 10);
+	Btn[quit_btn].Render();
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 	glPopMatrix();

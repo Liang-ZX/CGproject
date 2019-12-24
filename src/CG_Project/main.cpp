@@ -38,6 +38,7 @@ string spheretex2 = texture[2];
 void initialize(void)
 {
 	initLight();
+	quit_btn = Button::create(0, 9.5);
 }
 
 void main_menu(int value) {
@@ -113,11 +114,18 @@ void SpecialKeys(int key, int x, int y)
 
 void Start()
 {
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(-7.5, 7.5, -5, 5, 0, 100);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glViewport(0, 0, g_window_width, g_window_height);
 	Texture tex = Texture(texture[3]);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glBindTexture(GL_TEXTURE_2D, tex.getID());
-	glTranslatef(1, 0, 0);
 	glScalef(15, 10, 1);
 
 	glBegin(GL_QUADS);
@@ -133,6 +141,10 @@ void Start()
 	}
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void SetSphereTexture(string path, Sphere sp)
@@ -267,7 +279,7 @@ void redraw()
 	{
 		//gameState = INITIAL;
 		Start();
-
+		//glutSolidCube(1.0);
 		// used to test the MAINWINDOW
 		//gameState = MAINWINDOW;
 	}

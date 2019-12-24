@@ -72,6 +72,9 @@
     <ClInclude Include="SOIL.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="initialize.cpp">
@@ -93,6 +96,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="screenshot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
