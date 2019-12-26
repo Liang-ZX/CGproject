@@ -117,7 +117,9 @@
   <ItemGroup>
     <ClInclude Include="background.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="button_control.h" />
     <ClInclude Include="commandbox.h" />
+    <ClInclude Include="objFile.h" />
     <ClInclude Include="screenshot.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="define.h" />
@@ -139,11 +141,13 @@
   <ItemGroup>
     <ClCompile Include="background.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="button_control.cpp" />
     <ClCompile Include="commandbox.cpp" />
     <ClCompile Include="initialize.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mouse.cpp" />
+    <ClCompile Include="objFile.cpp" />
     <ClCompile Include="screenshot.cpp" />
   </ItemGroup>
   <ItemGroup>

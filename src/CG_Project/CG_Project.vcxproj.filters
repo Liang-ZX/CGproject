@@ -75,6 +75,12 @@
     <ClInclude Include="button.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="button_control.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="objFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="initialize.cpp">
@@ -99,6 +105,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="button_control.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="objFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

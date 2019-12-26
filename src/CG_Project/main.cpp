@@ -39,6 +39,8 @@ void initialize(void)
 {
 	initLight();
 	quit_btn = Button::create(0, 9.5);
+	screenshot_button = Button::create(0, 9);
+	obj_button = Button::create(0, 8.5);
 }
 
 void main_menu(int value) {
@@ -287,6 +289,7 @@ void redraw()
 	{
 		Draw_Scene();						// Draw Scene	
 		commandbox.create();
+		button_control();
 	}
 	else if (gameState == GAMEEND)
 	{

@@ -6,6 +6,7 @@ vector<Button> Btn;
 int Button::btn_count = 0;
 
 int quit_btn;
+int screenshot_button,obj_button;
 
 int Button::create(float posX, float posY)
 {

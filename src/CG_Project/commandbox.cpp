@@ -29,6 +29,8 @@ void CommandBox::create()
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glRectf(0, 0, 10, 10);
 	Btn[quit_btn].Render();
+	Btn[screenshot_button].Render();
+	Btn[obj_button].Render();
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 	glPopMatrix();

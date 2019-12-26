@@ -10,7 +10,7 @@ extern int g_window_height;
 
 /*button function*/
 extern int quit_btn;
-
+extern int screenshot_button, obj_button;
 class Button {
 private:
 	float m_fPosX;		//表示在正交投影坐标系(左下角为坐标原点)的坐标，

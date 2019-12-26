@@ -23,7 +23,7 @@
 #include "glew.h"
 #include "windows.h"
 #include "button.h"
-
+#include "button_control.h"
 using namespace std;
 //#include "view.h"
 

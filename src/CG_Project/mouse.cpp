@@ -26,6 +26,8 @@ void MousFunc(int button, int state, int x, int y)
 				if (x > 0.85 * g_window_width)
 				{	
 					Btn[0].OnMouseDown((x-0.85*g_window_width)*10.0/(0.15*g_window_width), y*10.0/g_window_height);
+					Btn[screenshot_button].OnMouseDown((x - 0.85*g_window_width)*10.0 / (0.15*g_window_width), y*10.0 / g_window_height);
+					Btn[obj_button].OnMouseDown((x - 0.85*g_window_width)*10.0 / (0.15*g_window_width), y*10.0 / g_window_height);
 					break;
 				}
 				else {
@@ -61,6 +63,8 @@ void MousFunc(int button, int state, int x, int y)
 				}
 			case GLUT_UP:
 				Btn[0].OnMouseUp();
+				Btn[screenshot_button].OnMouseUp();
+				Btn[obj_button].OnMouseUp();
 				break;
 			}
 	}

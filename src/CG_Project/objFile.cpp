@@ -91,7 +91,7 @@ void myObjLoader::Draw() {
 	//draw all faces
 	//glBindTexture(GL_TEXTURE_2D, texture);
 	glBegin(GL_TRIANGLES);
-	for (int i; i < Faces.size(); i++) {
+	for (int i = 0; i < Faces.size(); i++) {
 		//first vertex
 		glNormal3f(Normals[Faces[i].vn[0]].x, Normals[Faces[i].vn[0]].y, Normals[Faces[i].vn[0]].z);
 		//glTexCoord2f(tVertices[Faces[i].vt[0]].x, tVertices[Faces[i].vt[0]].y);
