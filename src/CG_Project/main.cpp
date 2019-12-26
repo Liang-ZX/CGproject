@@ -21,6 +21,10 @@ int gameState = GAMESTART;
 //background
 SkyBox sky;
 
+//Sphere
+int sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
+int sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
+
 //texture
 string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
 						"texturebmp\\start_image.bmp" };
@@ -176,34 +180,28 @@ void Draw_Leg()
 void Draw_Scene()
 {
 	glShadeModel(GL_SMOOTH);
-	//baclground
+	//background
 	Background(backgroundtex);
 	
-	glPushName(3);
-	Sphere sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
-	sp1.setRadius(1);
-	glPopName();
+	SphereVector[sp1].setRadius(1);
 
-	glPushName(4);
-	Sphere sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
-	sp2.setRadius(0.5);
-	glPopName();
-	/*
-	SetSphereTexture(spheretex1, sp1);
-	sp1.Draw(150, 200);
+	SphereVector[sp2].setRadius(0.5);
+	
+	SetSphereTexture(spheretex1, SphereVector[sp1]);
+	SphereVector[sp1].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
 
-	SetSphereTexture(spheretex2, sp2);
-	sp2.Draw(150, 200);
+	SetSphereTexture(spheretex2, SphereVector[sp2]);
+	SphereVector[sp2].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
 	
-	Stick st = Stick(1, sp1, sp2);
+	Stick st = Stick(1, SphereVector[sp1], SphereVector[sp2]);
 	st.setColor(1.0, 1.0, 1.0);
 	st.setRadius(0.13);
 
 	SetStickTexture(sticktex, st);
 	st.Draw(300, 300);
-	glDisable(GL_TEXTURE_2D);*/
+	glDisable(GL_TEXTURE_2D);
 }
 
 void updateView(int width, int height)
@@ -306,6 +304,8 @@ int main(int argc, char *argv[])
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
 	glutSpecialFunc(SpecialKeys);
+
+	printf("%d\n", SphereVector.size());
 
 	//rightbutton menu
 	int sub_menu1 = glutCreateMenu(size_menu);

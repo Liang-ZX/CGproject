@@ -1,5 +1,4 @@
 #include "mouse.h"
-#include <cstdio>
 
 extern int g_window_width, g_window_height, gameState;
 float yaw = 0, pitch = 0;
@@ -43,9 +42,26 @@ void MousFunc(int button, int state, int x, int y)
 					glLoadIdentity();
 
 					glGetIntegerv(GL_VIEWPORT, viewport);
-					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 0.01, 0.01, viewport);
+					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 5, 5, viewport);
 
-					updateView(g_window_width, g_window_height);
+					//update view
+					int height = g_window_height;
+					int draw_width = commandbox.box_percent * g_window_width;
+					
+					float whRatio = (GLfloat)draw_width / (GLfloat)height;
+
+					if (bPersp) {
+						gluPerspective(75.0f, whRatio, 1.0f, 50.0f);
+					}
+					else {
+						if (draw_width <= height)
+						{
+							gluOrtho2D(-3, 3, -3, 3.0 / whRatio);
+						}
+						else {
+							gluOrtho2D(-3, 3 * whRatio, -3, 3);
+						}
+					}
 					glMatrixMode(GL_MODELVIEW);
 					redraw();
 					glMatrixMode(GL_PROJECTION);
@@ -53,24 +69,29 @@ void MousFunc(int button, int state, int x, int y)
 					glMatrixMode(GL_MODELVIEW);
 					GLint hits = glRenderMode(GL_RENDER);
 					GLuint *ptr = pickBuffer;
-					printf("hits = %d, ", hits);
 					GLuint hitname;
 					while (hits != 0)
 					{
 						hitname = *ptr;
 						ptr += 3;
-						if(hitname != 0)
+						if (hitname != 0)
+						{
 							printf("%d ", *ptr);
+							printf("%d\n", SphereVector.size());
+							SphereVector[*ptr].setRadius(SphereVector[*ptr].getRadius() + 0.1);
+						}
 						ptr+=hitname;
 						hits--;
 					}
-					printf("\n");
 				}
 			case GLUT_UP:
-				Btn[0].OnMouseUp();
-				Btn[screenshot_button].OnMouseUp();
-				Btn[obj_button].OnMouseUp();
-				break;
+				if (x > 0.85 * g_window_width)
+				{
+					Btn[0].OnMouseUp();
+					Btn[screenshot_button].OnMouseUp();
+					Btn[obj_button].OnMouseUp();
+					break;
+				}
 			}
 	}
 		
