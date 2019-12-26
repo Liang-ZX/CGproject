@@ -1,6 +1,6 @@
-.vs
-src/CG_Project/Debug/
-src/x64/
-src/CG_Project/screenshot/
-src/CG_Project/x64/
-src/Debug/
+.vs/*
+src/CG_Project/Debug/*
+src/x64/*
+src/CG_Project/screenshot/*
+src/CG_Project/x64/*
+src/Debug/*
