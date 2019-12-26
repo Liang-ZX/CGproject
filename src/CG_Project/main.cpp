@@ -22,8 +22,8 @@ int gameState = GAMESTART;
 SkyBox sky;
 
 //Sphere
-int sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
-int sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
+int sp1;
+int sp2;
 
 //texture
 string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
@@ -39,6 +39,10 @@ void initialize(void)
 	quit_btn = Button::create(0, 9.5);
 	screenshot_button = Button::create(0, 9);
 	obj_button = Button::create(0, 8.5);
+	sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
+	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
+	SphereVector[sp1].setRadius(1);
+	SphereVector[sp2].setRadius(0.5);
 }
 
 void main_menu(int value) {
@@ -182,11 +186,7 @@ void Draw_Scene()
 	glShadeModel(GL_SMOOTH);
 	//background
 	Background(backgroundtex);
-	
-	SphereVector[sp1].setRadius(1);
-
-	SphereVector[sp2].setRadius(0.5);
-	
+		
 	SetSphereTexture(spheretex1, SphereVector[sp1]);
 	SphereVector[sp1].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
@@ -304,9 +304,7 @@ int main(int argc, char *argv[])
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
 	glutSpecialFunc(SpecialKeys);
-
-	printf("%d\n", SphereVector.size());
-
+	
 	//rightbutton menu
 	int sub_menu1 = glutCreateMenu(size_menu);
 	glutAddMenuEntry("Increase", 10);

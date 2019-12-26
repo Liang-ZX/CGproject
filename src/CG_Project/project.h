@@ -40,7 +40,6 @@ extern bool bAnim;
 extern int gameState;
 
 extern CommandBox commandbox;
-extern vector<Sphere> SphereVector;
 
 void initialize(void);
 void reshape(int width, int height);

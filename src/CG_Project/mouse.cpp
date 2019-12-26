@@ -70,18 +70,26 @@ void MousFunc(int button, int state, int x, int y)
 					GLint hits = glRenderMode(GL_RENDER);
 					GLuint *ptr = pickBuffer;
 					GLuint hitname;
+					unsigned int min_dist = 0xffffffff, tmp_index = -1;
 					while (hits != 0)
 					{
 						hitname = *ptr;
 						ptr += 3;
 						if (hitname != 0)
 						{
-							printf("%d ", *ptr);
-							printf("%d\n", SphereVector.size());
-							SphereVector[*ptr].setRadius(SphereVector[*ptr].getRadius() + 0.1);
+							if (*(ptr - 2) < min_dist)
+							{
+								min_dist = *(ptr - 2);
+								tmp_index = *ptr;
+							}
 						}
 						ptr+=hitname;
 						hits--;
+					}
+					printf("捕获: %d\n", tmp_index);
+					if (tmp_index != -1)
+					{
+						SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	//换其他功能吧
 					}
 				}
 			case GLUT_UP:

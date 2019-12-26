@@ -124,5 +124,6 @@ public:
 	GLfloat getRadius(){ return radius; }
 	MATERIAL mat(){ return spMaterial;}
 };
+extern std::vector<Sphere> SphereVector;
 
 #endif
