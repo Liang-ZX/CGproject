@@ -1,6 +1,11 @@
+#ifndef _SPHERE_H
+#define _SPHERE_H
 #include "glut.h"
-#include "math.h"
+#include <cmath>
 #include "material.h"
+#include "define.h"
+#include <vector>
+using namespace std;
 
 class Sphere
 {
@@ -14,6 +19,7 @@ private:
 	// binding light,etc to be added
 
 public:
+	static int count;
 	Sphere(){};
 	Sphere(int id)
 	{
@@ -57,6 +63,7 @@ public:
 	// draw by parametric equation
 	void Draw(GLint iSlices, GLint iStacks)
 	{
+		//glPushName(id);
 		glPushMatrix();
 		glEnable(GL_COLOR_MATERIAL);
 		glTranslatef(position[0], position[1], position[2]);
@@ -108,10 +115,17 @@ public:
 		}
 
 		glPopMatrix();
+		//glPopName();
 	}
+	static Sphere spherecreate(float x, float y, float z);
 
 	GLfloat getX() { return position[0]; }
 	GLfloat getY() { return position[1]; }
 	GLfloat getZ() { return position[2]; }
+	GLfloat getRadius(){ return radius; }
 	MATERIAL mat(){ return spMaterial;}
 };
+
+extern vector<Sphere> SphereVector;
+
+#endif

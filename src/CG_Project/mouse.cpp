@@ -1,4 +1,5 @@
 #include "mouse.h"
+#include <cstdio>
 
 extern int g_window_width, g_window_height, gameState;
 float yaw = 0, pitch = 0;
@@ -31,10 +32,10 @@ void MousFunc(int button, int state, int x, int y)
 					break;
 				}
 				else {
-					GLuint pickBuffer[50];
+					GLuint pickBuffer[256];
 					GLint viewport[4];
 
-					glSelectBuffer(10, pickBuffer);
+					glSelectBuffer(256, pickBuffer);
 					glRenderMode(GL_SELECT);
 					glInitNames();
 					glMatrixMode(GL_PROJECTION);
@@ -42,12 +43,9 @@ void MousFunc(int button, int state, int x, int y)
 					glLoadIdentity();
 
 					glGetIntegerv(GL_VIEWPORT, viewport);
-					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 2.0, 2.0, viewport);
+					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 0.01, 0.01, viewport);
 
-					if (bPersp)
-						gluPerspective(45.0f, wWidth / wHeight, 0.1f, 100.0f);
-					else
-						glOrtho(-3, 3, -3, 3, -100, 100);
+					updateView(g_window_width, g_window_height);
 					glMatrixMode(GL_MODELVIEW);
 					redraw();
 					glMatrixMode(GL_PROJECTION);
@@ -55,11 +53,18 @@ void MousFunc(int button, int state, int x, int y)
 					glMatrixMode(GL_MODELVIEW);
 					GLint hits = glRenderMode(GL_RENDER);
 					GLuint *ptr = pickBuffer;
+					printf("hits = %d, ", hits);
+					GLuint hitname;
 					while (hits != 0)
 					{
-						ptr += 4;
+						hitname = *ptr;
+						ptr += 3;
+						if(hitname != 0)
+							printf("%d ", *ptr);
+						ptr+=hitname;
 						hits--;
 					}
+					printf("\n");
 				}
 			case GLUT_UP:
 				Btn[0].OnMouseUp();
