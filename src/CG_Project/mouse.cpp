@@ -1,5 +1,6 @@
 #include "mouse.h"
 
+extern int g_window_width, g_window_height, gameState;
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;
 
@@ -7,7 +8,16 @@ void MousFunc(int button, int state, int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
-	if (button == GLUT_LEFT_BUTTON)
+	if (button == GLUT_LEFT_BUTTON) {
+		if (gameState == GAMESTART && state == GLUT_DOWN) {
+			//change the gameState
+			if (1.0*x / g_window_width >= 1.0 *83/256 && 1.0*x / g_window_width <= 1.0 * 164/256
+				&& 1.0*y / g_window_height >= 1.0 * 157/256 && 1.0*y / g_window_height <= 1.0 * 178/256)
+				gameState = MAINWINDOW;
+			if (1.0*x / g_window_width >= 1.0 * 99/256 && 1.0*x / g_window_width <= 1.0 * 148/256
+				&& 1.0*y / g_window_height >= 1.0 * 224/256 && 1.0*y / g_window_height <= 1.0 * 240/256)
+				gameState = GAMEEND;		
+		}
 		if (gameState == MAINWINDOW) {
 			switch (state)
 			{
@@ -53,6 +63,8 @@ void MousFunc(int button, int state, int x, int y)
 				Btn[0].OnMouseUp();
 				break;
 			}
+	}
+		
 		}
 		/*
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)

@@ -290,7 +290,7 @@ void redraw()
 	}
 	else if (gameState == GAMEEND)
 	{
-
+		exit(0);
 	}
 
 	glutSwapBuffers();
