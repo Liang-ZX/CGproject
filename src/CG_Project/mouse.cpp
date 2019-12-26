@@ -31,10 +31,10 @@ void MousFunc(int button, int state, int x, int y)
 					break;
 				}
 				else {
-					GLuint pickBuffer[50];
+					GLuint pickBuffer[256];
 					GLint viewport[4];
 
-					glSelectBuffer(10, pickBuffer);
+					glSelectBuffer(256, pickBuffer);
 					glRenderMode(GL_SELECT);
 					glInitNames();
 					glMatrixMode(GL_PROJECTION);
@@ -42,12 +42,26 @@ void MousFunc(int button, int state, int x, int y)
 					glLoadIdentity();
 
 					glGetIntegerv(GL_VIEWPORT, viewport);
-					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 2.0, 2.0, viewport);
+					gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 5, 5, viewport);
 
-					if (bPersp)
-						gluPerspective(45.0f, wWidth / wHeight, 0.1f, 100.0f);
-					else
-						glOrtho(-3, 3, -3, 3, -100, 100);
+					//update view
+					int height = g_window_height;
+					int draw_width = commandbox.box_percent * g_window_width;
+					
+					float whRatio = (GLfloat)draw_width / (GLfloat)height;
+
+					if (bPersp) {
+						gluPerspective(75.0f, whRatio, 1.0f, 50.0f);
+					}
+					else {
+						if (draw_width <= height)
+						{
+							gluOrtho2D(-3, 3, -3, 3.0 / whRatio);
+						}
+						else {
+							gluOrtho2D(-3, 3 * whRatio, -3, 3);
+						}
+					}
 					glMatrixMode(GL_MODELVIEW);
 					redraw();
 					glMatrixMode(GL_PROJECTION);
@@ -55,17 +69,37 @@ void MousFunc(int button, int state, int x, int y)
 					glMatrixMode(GL_MODELVIEW);
 					GLint hits = glRenderMode(GL_RENDER);
 					GLuint *ptr = pickBuffer;
+					GLuint hitname;
+					unsigned int min_dist = 0xffffffff, tmp_index = -1;
 					while (hits != 0)
 					{
-						ptr += 4;
+						hitname = *ptr;
+						ptr += 3;
+						if (hitname != 0)
+						{
+							if (*(ptr - 2) < min_dist)
+							{
+								min_dist = *(ptr - 2);
+								tmp_index = *ptr;
+							}
+						}
+						ptr+=hitname;
 						hits--;
+					}
+					printf("捕获: %d\n", tmp_index);
+					if (tmp_index != -1)
+					{
+						SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	//换其他功能吧
 					}
 				}
 			case GLUT_UP:
-				Btn[0].OnMouseUp();
-				Btn[screenshot_button].OnMouseUp();
-				Btn[obj_button].OnMouseUp();
-				break;
+				if (x > 0.85 * g_window_width)
+				{
+					Btn[0].OnMouseUp();
+					Btn[screenshot_button].OnMouseUp();
+					Btn[obj_button].OnMouseUp();
+					break;
+				}
 			}
 		}
 

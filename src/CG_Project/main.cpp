@@ -22,10 +22,8 @@ int gameState = GAMESTART;
 SkyBox sky;
 
 //Sphere
-Sphere sp1 = Sphere(1);
-Sphere sp2 = Sphere(2);
-float radius1 = 1;
-float radius2 = 0.5;
+int sp1;
+int sp2;
 
 //texture
 string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
@@ -41,6 +39,10 @@ void initialize(void)
 	quit_btn = Button::create(0, 9.5);
 	screenshot_button = Button::create(0, 9);
 	obj_button = Button::create(0, 8.5);
+	sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
+	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
+	SphereVector[sp1].setRadius(1);
+	SphereVector[sp2].setRadius(0.5);
 }
 
 void main_menu(int value) {
@@ -86,12 +88,12 @@ void size_menu(int value)
 	switch (value)
 	{
 	case 10:
-		radius1 += 0.1;
+		SphereVector[0].setRadius(SphereVector[0].getRadius() +0.1);
 		break;
 	case 11:
-		if (radius1 > 0.4)
+		if (SphereVector[0].getRadius() > 0.4)
 		{
-			radius1 -= 0.1;
+			SphereVector[0].setRadius(SphereVector[0].getRadius() - 0.1);
 		}
 		break;
 	}
@@ -187,26 +189,18 @@ void Draw_Leg()
 void Draw_Scene()
 {
 	glShadeModel(GL_SMOOTH);
-	//baclground
+	//background
 	Background(backgroundtex);
-
-	sp1.setColor(1.0, 1.0, 1.0);
-	sp1.setPosition(1.1, 0.0, 0.0);
-	sp1.setRadius(radius1);
-
-	sp2.setColor(1.0, 1.0, 1.0);
-	sp2.setPosition(-1.0, 0.0, 0.0);
-	sp2.setRadius(0.5);
-
-	SetSphereTexture(spheretex1, sp1);
-	sp1.Draw(150, 200);
+		
+	SetSphereTexture(spheretex1, SphereVector[sp1]);
+	SphereVector[sp1].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
 
-	SetSphereTexture(spheretex2, sp2);
-	sp2.Draw(150, 200);
+	SetSphereTexture(spheretex2, SphereVector[sp2]);
+	SphereVector[sp2].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
-
-	Stick st = Stick(1, sp1, sp2);
+	
+	Stick st = Stick(1, SphereVector[sp1], SphereVector[sp2]);
 	st.setColor(1.0, 1.0, 1.0);
 	st.setRadius(0.13);
 
@@ -239,13 +233,8 @@ void updateView(int width, int height)
 		}
 	}
 	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
-	if (draw_width <= height)
-	{
-		glViewport(0, 0, draw_width, height);
-	}
-	else {
-		glViewport(0, 0, draw_width, height);
-	}
+	glViewport(0, 0, draw_width, height);
+	
 }
 
 void reshape(int width, int height)
@@ -320,7 +309,7 @@ int main(int argc, char *argv[])
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
 	glutSpecialFunc(SpecialKeys);
-
+	
 	//rightbutton menu
 	int sub_menu1 = glutCreateMenu(size_menu);
 	glutAddMenuEntry("Increase", 10);

@@ -1,3 +1,5 @@
+#ifndef _MATERIAL_H
+#define _MATERIAL_H
 typedef struct
 {
 	float ambient[4];
@@ -5,3 +7,4 @@ typedef struct
 	float specular[4];
 	float shininess;
 }MATERIAL;
+#endif
