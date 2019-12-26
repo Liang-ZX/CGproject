@@ -115,21 +115,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="background.h" />
+    <ClInclude Include="button.h" />
+    <ClInclude Include="button_control.h" />
+    <ClInclude Include="commandbox.h" />
+    <ClInclude Include="objFile.h" />
+    <ClInclude Include="screenshot.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="gl.h" />
+    <ClInclude Include="glew.h" />
     <ClInclude Include="glu.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="initialize.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="project.h" />
+    <ClInclude Include="SOIL.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="stick.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="background.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="button_control.cpp" />
+    <ClCompile Include="commandbox.cpp" />
     <ClCompile Include="initialize.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mouse.cpp" />
+    <ClCompile Include="objFile.cpp" />
+    <ClCompile Include="screenshot.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SOIL.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,9 +18,6 @@
     <ClInclude Include="initialize.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="light.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -42,12 +39,51 @@
     <ClInclude Include="glut.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stick.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glew.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="commandbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="screenshot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SOIL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="button_control.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="objFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="initialize.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -56,5 +92,31 @@
     <ClCompile Include="mouse.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="commandbox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="screenshot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="button_control.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="objFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SOIL.lib">
+      <Filter>头文件</Filter>
+    </Library>
   </ItemGroup>
 </Project>

@@ -1,10 +1,7 @@
 #ifndef _MOUSE_H
 #define _MOUSE_H
 
-#define PI 3.14159
-
 #include "project.h"
-#include <math.h>
 
 extern float yaw, pitch;
 extern float mouseX, mouseY;
