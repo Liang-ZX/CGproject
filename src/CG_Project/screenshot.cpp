@@ -13,7 +13,7 @@ void screenshot::getBuffer(int width, int height, vector<unsigned char>& buf)
 void screenshot::saveImg(struct tm* imageTime)
 {
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	GLint xywh[4] = {0};
+	GLint xywh[4] = { 0 };
 	glGetIntegerv(GL_VIEWPORT, xywh);
 	vector<unsigned char> buf(xywh[2] * xywh[3] * 3);
 	glReadPixels(xywh[0], xywh[1], xywh[2], xywh[3], GL_RGB, GL_UNSIGNED_BYTE, &buf[0]);
@@ -21,7 +21,7 @@ void screenshot::saveImg(struct tm* imageTime)
 	string h = to_string(imageTime->tm_hour);
 	string m = to_string(imageTime->tm_min);
 	string s = to_string(imageTime->tm_sec);
-	string path = "screenshot\\Shot"+ h + "_" + m + "_" + s + ".jpg";
+	string path = "screenshot\\Shot" + h + "_" + m + "_" + s + ".jpg";
 	int save = SOIL_save_image
 	(
 		path.c_str(),
@@ -30,5 +30,5 @@ void screenshot::saveImg(struct tm* imageTime)
 		&buf[0]
 	);
 	if (!save)  cout << "The image cannot be saved." << endl;
-	else cout << "The image is saved."<< endl;
+	else cout << "The image is saved." << endl;
 }

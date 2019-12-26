@@ -97,7 +97,7 @@ void size_menu(int value)
 	}
 }
 
-void SpecialKeys(int key, int x, int y)
+void SpecialKeys(int key, int x, int y)//fullscreen
 {
 	switch (key)
 	{
@@ -109,7 +109,12 @@ void SpecialKeys(int key, int x, int y)
 			g_window_height = glutGet(GLUT_WINDOW_HEIGHT);
 			glutFullScreen();
 		}
-		else glutReshapeWindow(g_window_width, g_window_height);
+		else
+		{
+			g_window_width = 700;
+			g_window_height = 600;
+			glutReshapeWindow(g_window_width, g_window_height);
+		}
 		break;
 	}
 }
@@ -120,7 +125,7 @@ void Start()
 	glPushMatrix();
 	glLoadIdentity();
 	glOrtho(-7.5, 7.5, -5, 5, 0, 100);
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glViewport(0, 0, g_window_width, g_window_height);

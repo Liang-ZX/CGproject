@@ -49,7 +49,7 @@ myObjLoader::myObjLoader(string objfilename) {
 			t1 = t2 + 1;
 			t2 = line.find_first_of(' ', t1);
 			f.vn[0] = stoi(line.substr(t1, t2)) - 1;
-			
+
 			//second vertex
 			t1 = t2 + 1;
 			t2 = line.find_first_of('/', t1);
@@ -82,7 +82,7 @@ myObjLoader::myObjLoader(string objfilename) {
 
 		}
 	}
-	
+
 	fs.close();
 	//texture = 
 }

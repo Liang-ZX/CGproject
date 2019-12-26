@@ -6,7 +6,7 @@ vector<Button> Btn;
 int Button::btn_count = 0;
 
 int quit_btn;
-int screenshot_button,obj_button;
+int screenshot_button, obj_button;
 
 int Button::create(float posX, float posY)
 {
@@ -43,7 +43,7 @@ void Button::Render()
 	}
 	//cube中心位于原点
 	glScalef(m_fWidth, m_fHeight, 1.0);
-	glColor3f(192.0/255, 192.0/255, 192.0/255);
+	glColor3f(192.0 / 255, 192.0 / 255, 192.0 / 255);
 	glutSolidCube(1.0);
 	glPopMatrix();
 }
