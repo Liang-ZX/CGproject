@@ -21,6 +21,10 @@ int gameState = GAMESTART;
 //background
 SkyBox sky;
 
+// used to indicate click to draw a new sphere or stick
+int drawNewSphere = 0;
+int drawNewStick = 0;
+
 //Sphere
 int sp1;
 int sp2;
@@ -46,6 +50,7 @@ void initialize(void)
 	quit_btn = Button::create(0, 9.5);
 	screenshot_button = Button::create(0, 9);
 	obj_button = Button::create(0, 8.5);
+
 	sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
 	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
 	SphereVector[sp1].setRadius(1);
@@ -103,6 +108,20 @@ void size_menu(int value)
 		{
 			SphereVector[sphereid_now].setRadius(SphereVector[0].getRadius() - 0.1);
 		}
+		break;
+	}
+}
+
+void draw_menu(int value) 
+{ 
+	drawNewSphere = 1; 
+    switch (value)
+	{
+	case 16:
+		drawNewSphere = 1;
+		break;
+	case 17:
+		drawNewStick = 1;
 		break;
 	}
 }
@@ -200,13 +219,13 @@ void Draw_Scene()
 	//background
 	Background(backgroundtex);
 
-	SetSphereTexture(spheretex[0], SphereVector[sp1]);
-	SphereVector[sp1].Draw(150, 200);
-	glDisable(GL_TEXTURE_2D);
-
-	SetSphereTexture(spheretex[1], SphereVector[sp2]);
-	SphereVector[sp2].Draw(150, 200);
-	glDisable(GL_TEXTURE_2D);
+	int itr;
+	for (itr = 0; itr<SphereVector.size();itr++)
+	{
+		SetSphereTexture(spheretex[itr], SphereVector[itr]);
+		SphereVector[itr].Draw(150, 200);
+		glDisable(GL_TEXTURE_2D);
+	}
 
 	Stick st = Stick(1, SphereVector[sp1], SphereVector[sp2]);
 	st.setColor(1.0, 1.0, 1.0);
@@ -293,7 +312,7 @@ void redraw()
 		commandbox.create();
 		button_control();
 
-		printf("sphereid: %d\n", sphereid_now);
+		//printf("sphereid: %d\n", sphereid_now);
 	}
 	else if (gameState == GAMEEND)
 	{
@@ -326,8 +345,12 @@ int main(int argc, char *argv[])
 	glutAddMenuEntry("Decrease", 11);
 
 	int sub_menu2 = glutCreateMenu(texture_menu);
-	glutAddMenuEntry("change texture", 4);
+	glutAddMenuEntry("Change texture", 4);
 	//glutAddMenuEntry("earth texture", 5);
+
+	int sub_menu3 = glutCreateMenu(draw_menu);
+	glutAddMenuEntry("Draw a new sphere", 16);
+	glutAddMenuEntry("Draw a new stick", 17);
 
 	glutCreateMenu(main_menu);//注册菜单回调函数
 
@@ -336,6 +359,7 @@ int main(int argc, char *argv[])
 	glutAddSubMenu("Size", sub_menu1);
 	glutAddSubMenu("Texture", sub_menu2);
 	//glutAddMenuEntry("Exit", 20);
+	glutAddSubMenu("Draw", sub_menu3);
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);//把当前菜单注册到指定的鼠标键
 

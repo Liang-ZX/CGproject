@@ -4,7 +4,7 @@ std::vector<Sphere> SphereVector;
 
 int Sphere::count = 0;
 
-int Sphere::spherecreate(float x, float y, float z)	//called only once for each ball, so not in »æÖÆ¹ÜÏß
+int Sphere::spherecreate(float x, float y, float z)	//called only once for each ball, so not in ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½
 {													//sphere.draw should be called additionally
 	Sphere tmpsp = Sphere(count++);
 	tmpsp.setColor(1.0, 1.0, 1.0);

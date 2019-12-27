@@ -13,9 +13,9 @@ extern int quit_btn;
 extern int screenshot_button, obj_button;
 class Button {
 private:
-	float m_fPosX;		//表示在正交投影坐标系(左下角为坐标原点)的坐标，
+	float m_fPosX;		//锟斤拷示锟斤拷锟斤拷锟斤拷投影锟斤拷锟斤拷系(锟斤拷锟铰斤拷为锟斤拷锟斤拷原锟斤拷)锟斤拷锟斤拷锟疥，
 	float m_fPosY;
-	float m_fWidth;		//屏幕像素单位
+	float m_fWidth;		//锟斤拷幕锟斤拷锟截碉拷位
 	float m_fHeight;
 	int btn_id;
 public:

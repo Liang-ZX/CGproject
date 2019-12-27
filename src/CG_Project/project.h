@@ -39,6 +39,10 @@ extern bool bPersp;
 extern bool bAnim;
 extern int gameState;
 
+// used to indicate click to draw a new sphere or stick
+extern int drawNewSphere;
+extern int drawNewStick;
+
 extern CommandBox commandbox;
 
 void initialize(void);

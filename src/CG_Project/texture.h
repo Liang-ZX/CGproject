@@ -30,7 +30,7 @@ private:
 
 		if ((pFile = fopen(file_name, "rb")) == NULL)
 		{
-			printf("Read texture error\n");
+			//printf("Read texture error\n");
 			return 0;
 		}
 

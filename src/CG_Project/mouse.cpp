@@ -22,7 +22,7 @@ void MousFunc(int button, int state, int x, int y)
 			switch (state)
 			{
 			case GLUT_DOWN:
-				//×ó¼ü°´ÏÂ£º
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
 				if (x > 0.85 * g_window_width)
 				{
 					Btn[0].OnMouseDown((x - 0.85*g_window_width)*10.0 / (0.15*g_window_width), y*10.0 / g_window_height);
@@ -87,13 +87,22 @@ void MousFunc(int button, int state, int x, int y)
 						ptr+=hitname;
 						hits--;
 					}
-					printf("²¶»ñ: %d\n", tmp_index);
+					printf("Sphere: %d\n", tmp_index);
 					if (tmp_index != -1)
 					{
 						sphereid_now = tmp_index;
 						//printf("sphereid: %d\n", sphereid_now);
-						//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	//»»ÆäËû¹¦ÄÜ°É
+						//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	
 					}
+				}
+
+				//draw new sphere
+				if (drawNewSphere == 1) {
+					int spnew;
+					spnew = Sphere::spherecreate(0, 0, 0.0);
+					SphereVector[spnew].setRadius(1);
+					drawNewSphere = 0;
+
 				}
 			case GLUT_UP:
 				if (x > 0.85 * g_window_width)

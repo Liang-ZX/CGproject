@@ -9,4 +9,5 @@ extern float mouseX, mouseY;
 void MousFunc(int button, int state, int x, int y);
 void PassiveMotion(int x, int y);
 
+
 #endif

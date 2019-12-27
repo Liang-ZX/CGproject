@@ -32,8 +32,8 @@ void Button::Render()
 	m_fHeight = m_fWidth * box_whratio / 5;
 	glPushMatrix();
 	glLoadIdentity();
-	//½«ÖÐÐÄÎ»ÓÚÔ­µãµÄcubeÒÆ¶¯µ½Ê¹cube×óÏÂ½Ç×ø±êÎªm_fPosX,m_fPosYµÄÎ»ÖÃ
-	//±ØÐë¿¼ÂÇcubeµÄ×ÔÉí³¤¿í
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ô­ï¿½ï¿½ï¿½cubeï¿½Æ¶ï¿½ï¿½ï¿½Ê¹cubeï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Îªm_fPosX,m_fPosYï¿½ï¿½Î»ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ë¿¼ï¿½ï¿½cubeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	glTranslatef(m_fPosX + m_fWidth / 2, m_fPosY + m_fHeight / 2, 0.0);
 	if (m_bPressed)
 	{
@@ -41,7 +41,7 @@ void Button::Render()
 		//double scaleAmt = sin( (double)rand() );
 		glScalef(0.9, 0.9, 1.0);
 	}
-	//cubeÖÐÐÄÎ»ÓÚÔ­µã
+	//cubeï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ô­ï¿½ï¿½
 	glScalef(m_fWidth, m_fHeight, 1.0);
 	glColor3f(192.0 / 255, 192.0 / 255, 192.0 / 255);
 	glutSolidCube(1.0);
