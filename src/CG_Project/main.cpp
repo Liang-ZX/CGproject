@@ -24,14 +24,21 @@ SkyBox sky;
 //Sphere
 int sp1;
 int sp2;
+int sphereid_now;
 
 //texture
-string texture[20] = { "texturebmp\\stick.bmp", "texturebmp\\sun.bmp" , "texturebmp\\earth.bmp" ,
-						"texturebmp\\start_image.bmp" };
-string backgroundtex = texture[0];
-string sticktex = texture[0];
-string spheretex1 = texture[1];
-string spheretex2 = texture[2];
+string othertexture[5] = { "othertexture\\start_image.bmp" , "othertexture\\background.bmp" };
+string sticktexture[10] = { "sticktexture\\stick.bmp" };
+string spheretexture[20] = { "spheretexture\\sun.bmp" , "spheretexture\\earth.bmp" , "spheretexture\\jupiter.bmp"
+, "spheretexture\\mars.bmp","spheretexture\\mercurial.bmp","spheretexture\\moon.bmp" ,"spheretexture\\neptune.bmp"
+,"spheretexture\\pluto.bmp", "spheretexture\\saturn.bmp","spheretexture\\vranus.bmp" ,"spheretexture\\venus.bmp" };
+
+string backgroundtex = othertexture[1];
+string sticktex = sticktexture[0];
+//string spheretex1 = texture[1];
+//string spheretex2 = texture[2];
+
+string spheretex[20];//初始状态没有纹理
 
 void initialize(void)
 {
@@ -48,12 +55,11 @@ void initialize(void)
 void main_menu(int value) {
 
 	if (value == 1) {//clear screen
-		glClear(GL_COLOR_BUFFER_BIT);
-		glutSwapBuffers();
-		if (gameState != GAMESTART)
-		{
-			gameState = INITIAL;
-		}
+		//while (SphereVector.size()>1)
+		//{
+		//	SphereVector.pop_back();
+		//}
+		//SphereVector.clear();
 	}
 
 	if (value == 2) {//start draw
@@ -70,16 +76,18 @@ void main_menu(int value) {
 
 void texture_menu(int value)
 {
+	srand((unsigned)time(NULL));
 	switch (value)
 	{
 	case 4:
-		spheretex1 = texture[2];
-		spheretex2 = texture[1];
+		spheretex[sphereid_now] = spheretexture[rand() % 11];
+		//spheretex1 = texture[rand()%5];
+		//spheretex2 = texture[rand() % 5];
 		break;
-	case 5:
-		spheretex1 = texture[1];
-		spheretex2 = texture[2];
-		break;
+		//case 5:
+			//spheretex1 = texture[1];
+			//spheretex2 = texture[rand() % 5];
+			//break;
 	}
 }
 
@@ -88,12 +96,12 @@ void size_menu(int value)
 	switch (value)
 	{
 	case 10:
-		SphereVector[0].setRadius(SphereVector[0].getRadius() +0.1);
+		SphereVector[sphereid_now].setRadius(SphereVector[0].getRadius() + 0.1);
 		break;
 	case 11:
-		if (SphereVector[0].getRadius() > 0.4)
+		if (SphereVector[sphereid_now].getRadius() > 0.4)
 		{
-			SphereVector[0].setRadius(SphereVector[0].getRadius() - 0.1);
+			SphereVector[sphereid_now].setRadius(SphereVector[0].getRadius() - 0.1);
 		}
 		break;
 	}
@@ -131,7 +139,7 @@ void Start()
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glViewport(0, 0, g_window_width, g_window_height);
-	Texture tex = Texture(texture[3]);
+	Texture tex = Texture(othertexture[0]);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glBindTexture(GL_TEXTURE_2D, tex.getID());
@@ -191,15 +199,15 @@ void Draw_Scene()
 	glShadeModel(GL_SMOOTH);
 	//background
 	Background(backgroundtex);
-		
-	SetSphereTexture(spheretex1, SphereVector[sp1]);
+
+	SetSphereTexture(spheretex[0], SphereVector[sp1]);
 	SphereVector[sp1].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
 
-	SetSphereTexture(spheretex2, SphereVector[sp2]);
+	SetSphereTexture(spheretex[1], SphereVector[sp2]);
 	SphereVector[sp2].Draw(150, 200);
 	glDisable(GL_TEXTURE_2D);
-	
+
 	Stick st = Stick(1, SphereVector[sp1], SphereVector[sp2]);
 	st.setColor(1.0, 1.0, 1.0);
 	st.setRadius(0.13);
@@ -234,7 +242,7 @@ void updateView(int width, int height)
 	}
 	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 	glViewport(0, 0, draw_width, height);
-	
+
 }
 
 void reshape(int width, int height)
@@ -284,6 +292,8 @@ void redraw()
 		Draw_Scene();						// Draw Scene	
 		commandbox.create();
 		button_control();
+
+		printf("sphereid: %d\n", sphereid_now);
 	}
 	else if (gameState == GAMEEND)
 	{
@@ -309,23 +319,23 @@ int main(int argc, char *argv[])
 	glutMotionFunc(PassiveMotion);
 	glutIdleFunc(idle);
 	glutSpecialFunc(SpecialKeys);
-	
+
 	//rightbutton menu
 	int sub_menu1 = glutCreateMenu(size_menu);
 	glutAddMenuEntry("Increase", 10);
 	glutAddMenuEntry("Decrease", 11);
 
 	int sub_menu2 = glutCreateMenu(texture_menu);
-	glutAddMenuEntry("sun texture", 4);
-	glutAddMenuEntry("earth texture", 5);
+	glutAddMenuEntry("change texture", 4);
+	//glutAddMenuEntry("earth texture", 5);
 
 	glutCreateMenu(main_menu);//注册菜单回调函数
 
 	glutAddMenuEntry("Clear Screen", 1);//添加菜单项
-	glutAddMenuEntry("Start Game", 2);
+	//glutAddMenuEntry("Start Game", 2);
 	glutAddSubMenu("Size", sub_menu1);
 	glutAddSubMenu("Texture", sub_menu2);
-	glutAddMenuEntry("Exit", 20);
+	//glutAddMenuEntry("Exit", 20);
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);//把当前菜单注册到指定的鼠标键
 

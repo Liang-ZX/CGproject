@@ -1,6 +1,6 @@
 #include "mouse.h"
 
-extern int g_window_width, g_window_height, gameState;
+extern int g_window_width, g_window_height, gameState, sphereid_now;
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;
 
@@ -70,7 +70,8 @@ void MousFunc(int button, int state, int x, int y)
 					GLint hits = glRenderMode(GL_RENDER);
 					GLuint *ptr = pickBuffer;
 					GLuint hitname;
-					unsigned int min_dist = 0xffffffff, tmp_index = -1;
+					unsigned int min_dist = 0xffffffff;
+					int tmp_index = -1;
 					while (hits != 0)
 					{
 						hitname = *ptr;
@@ -89,7 +90,9 @@ void MousFunc(int button, int state, int x, int y)
 					printf("捕获: %d\n", tmp_index);
 					if (tmp_index != -1)
 					{
-						SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	//换其他功能吧
+						sphereid_now = tmp_index;
+						//printf("sphereid: %d\n", sphereid_now);
+						//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	//换其他功能吧
 					}
 				}
 			case GLUT_UP:

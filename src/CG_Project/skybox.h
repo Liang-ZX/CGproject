@@ -10,7 +10,7 @@ using namespace std;
 class SkyBox {
 public:
 	//mode
-	GLint mode=sphere;
+	GLint mode=cube;
 
 	void Draw(string path)
 	{
