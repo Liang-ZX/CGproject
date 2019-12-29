@@ -10,6 +10,7 @@ private:
 	GLfloat specular[4];	//���淴��
 
 public:
+	Light(){}
 	Light(int id)
 	{
 		this->id = id;
@@ -28,6 +29,16 @@ public:
 		position[1] = y;
 		position[2] = z;
 		position[3] = type;
+	}
+	void changePosition(GLfloat x, GLfloat y, GLfloat z) {
+		position[0] +=x;
+		position[1] += y;
+		position[2] += z;
+		printf("%f %f %f\n", position[0], position[1], position[2]);
+	}
+	void changeType(GLfloat type) {
+		if (type == 0 || type == 1)
+			position[3] = type;
 	}
 	//a��͸����
 	void setAmbient(GLfloat r, GLfloat g, GLfloat b, GLfloat a)

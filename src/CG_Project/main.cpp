@@ -291,6 +291,7 @@ void redraw()
 	glClearColor(0, 0, 0, 0);
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
+	changeLight();
 	gluLookAt(eye[0], eye[1], eye[2],
 		center[0], center[1], center[2],
 		0, 1, 0);
