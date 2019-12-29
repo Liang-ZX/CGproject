@@ -30,6 +30,10 @@ int sp1;
 int sp2;
 int sphereid_now;
 
+//Stick
+int st1;
+int stickid_now;
+
 //texture
 string othertexture[5] = { "othertexture\\start_image.bmp" , "othertexture\\background.bmp" };
 string sticktexture[10] = { "sticktexture\\stick.bmp" };
@@ -55,6 +59,7 @@ void initialize(void)
 	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
 	SphereVector[sp1].setRadius(1);
 	SphereVector[sp2].setRadius(0.5);
+	st1 = Stick::stickcreate(SphereVector[sp1], SphereVector[sp2]);
 }
 
 void main_menu(int value) {
@@ -227,12 +232,11 @@ void Draw_Scene()
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	Stick st = Stick(1, SphereVector[sp1], SphereVector[sp2]);
-	st.setColor(1.0, 1.0, 1.0);
-	st.setRadius(0.13);
+	StickVector[st1].setColor(1.0, 1.0, 1.0);
+	StickVector[st1].setRadius(0.13);
 
-	SetStickTexture(sticktex, st);
-	st.Draw(300, 300);
+	SetStickTexture(sticktex, StickVector[st1]);
+	StickVector[st1].Draw(300, 300);
 	glDisable(GL_TEXTURE_2D);
 }
 

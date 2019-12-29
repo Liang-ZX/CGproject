@@ -116,6 +116,9 @@
     <ClCompile Include="sphere.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="stick.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="SOIL.lib">

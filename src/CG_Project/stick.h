@@ -1,5 +1,7 @@
 #include "glut.h"
 #include "math.h"
+#include "sphere.h"
+#include <vector>
 
 class Stick
 {
@@ -15,6 +17,8 @@ private:
 	// binding light,etc to be added
 
 public:
+	static int count;
+	static int stickcreate(Sphere sp1, Sphere sp2);
 	Stick() {};
 	Stick(int id, Sphere sp1, Sphere sp2)
 	{
@@ -63,6 +67,7 @@ public:
 		glEnable(GL_COLOR_MATERIAL);
 		glColor3f(color[0], color[1], color[2]);
 
+		glPushName(100 + id);	//name id of stick is from 100
 		glPushMatrix();
 		glTranslatef(sp1.getX(), sp1.getY(), sp1.getZ());
 		vecX /= stlength;
@@ -91,7 +96,9 @@ public:
 		GLdouble stack = 3.0;  
 		gluCylinder(quad_obj, radius, radius, stlength, iSlices, iStacks);
 		glPopMatrix();
+		glPopName();
 	}
 
 	MATERIAL mat(){ return stMaterial; }
 };
+extern std::vector<Stick> StickVector;

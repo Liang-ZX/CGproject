@@ -1,6 +1,6 @@
 #include "mouse.h"
 
-extern int g_window_width, g_window_height, gameState, sphereid_now;
+extern int g_window_width, g_window_height, gameState, sphereid_now, stickid_now;
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;
 
@@ -22,7 +22,7 @@ void MousFunc(int button, int state, int x, int y)
 			switch (state)
 			{
 			case GLUT_DOWN:
-				//������£�
+				//left mouse down
 				if (x > 0.85 * g_window_width)
 				{
 					Btn[0].OnMouseDown((x - 0.85*g_window_width)*10.0 / (0.15*g_window_width), y*10.0 / g_window_height);
@@ -87,12 +87,20 @@ void MousFunc(int button, int state, int x, int y)
 						ptr+=hitname;
 						hits--;
 					}
-					printf("Sphere: %d\n", tmp_index);
-					if (tmp_index != -1)
+					if (tmp_index < 100)
 					{
-						sphereid_now = tmp_index;
-						//printf("sphereid: %d\n", sphereid_now);
-						//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	
+						printf("Sphere: %d\n", tmp_index);
+						if (tmp_index != -1)
+						{
+							sphereid_now = tmp_index;
+							//printf("sphereid: %d\n", sphereid_now);
+							//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	
+						}
+					}
+					else if (tmp_index < 200)
+					{
+						printf("Stick: %d\n", tmp_index - 100);
+						stickid_now = tmp_index - 100;
 					}
 				}
 
