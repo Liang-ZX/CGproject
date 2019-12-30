@@ -176,9 +176,13 @@ void PassiveMotion(int x, int y)
 			pitch = -PI / 2 + 0.02;
 		mouseX = x;
 		mouseY = y;
-		eye[0] = 8 * sin(yaw);
+		/*eye[0] = 8 * sin(yaw);
 		eye[1] = 8 * cos(yaw) * sin(pitch);
-		eye[2] = 8 * cos(yaw) * cos(pitch);
+		eye[2] = 8 * cos(yaw) * cos(pitch);*/
+		r_eye = sqrt(eye[0] * eye[0] + eye[1] * eye[1] + eye[2] * eye[2]);
+		eye[0] = r_eye * sin(yaw);
+		eye[1] = r_eye * cos(yaw) * sin(pitch);
+		eye[2] = r_eye * cos(yaw) * cos(pitch);
 		redraw();
 	}
 }

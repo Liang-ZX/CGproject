@@ -131,6 +131,22 @@ void draw_menu(int value)
 	}
 }
 
+void zoom_menu(int value)
+{
+	switch (value)
+	{
+	case 21:
+		eye[2] += -0.5;
+		r_eye = sqrt(eye[0] * eye[0] + eye[1] * eye[1] + eye[2] * eye[2]);
+		//center[2] += -0.5;
+		break;
+	case 22:
+		eye[2] += 0.5;
+		r_eye = sqrt(eye[0] * eye[0] + eye[1] * eye[1] + eye[2] * eye[2]);
+		//center[2] += 0.5;
+		break;
+	}
+}
 void SpecialKeys(int key, int x, int y)//fullscreen
 {
 	switch (key)
@@ -288,6 +304,7 @@ void idle()
 
 float eye[] = { 0, 0, 8 };
 float center[] = { 0, 0, 0 };
+float r_eye = 8.0;
 
 void redraw()
 {
@@ -356,6 +373,10 @@ int main(int argc, char *argv[])
 	int sub_menu3 = glutCreateMenu(draw_menu);
 	glutAddMenuEntry("Draw a new sphere", 16);
 	glutAddMenuEntry("Draw a new stick", 17);
+	
+	int sub_menu4 = glutCreateMenu(zoom_menu);
+	glutAddMenuEntry("Zoom in", 21);
+	glutAddMenuEntry("Zoom out", 22);
 
 	glutCreateMenu(main_menu);//注册菜单回调函数
 
@@ -365,6 +386,7 @@ int main(int argc, char *argv[])
 	glutAddSubMenu("Texture", sub_menu2);
 	//glutAddMenuEntry("Exit", 20);
 	glutAddSubMenu("Draw", sub_menu3);
+	glutAddSubMenu("Zoom", sub_menu4);
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);//把当前菜单注册到指定的鼠标键
 
