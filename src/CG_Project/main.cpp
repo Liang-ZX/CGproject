@@ -59,7 +59,9 @@ void initialize(void)
 	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
 	SphereVector[sp1].setRadius(1);
 	SphereVector[sp2].setRadius(0.5);
-	st1 = Stick::stickcreate(SphereVector[sp1], SphereVector[sp2]);
+	//st1 = Stick::stickcreate(SphereVector[sp1], SphereVector[sp2]);
+	//StickVector[st1].setColor(1.0, 1.0, 1.0);
+	//StickVector[st1].setRadius(0.13);
 }
 
 void main_menu(int value) {
@@ -119,14 +121,13 @@ void size_menu(int value)
 
 void draw_menu(int value) 
 { 
-	drawNewSphere = 1; 
     switch (value)
 	{
 	case 16:
 		drawNewSphere = 1;
 		break;
 	case 17:
-		drawNewStick = 1;
+		drawNewStick = 2; // indicates that 2 sphere should be clicked 
 		break;
 	}
 }
@@ -248,12 +249,13 @@ void Draw_Scene()
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	StickVector[st1].setColor(1.0, 1.0, 1.0);
-	StickVector[st1].setRadius(0.13);
+	for (itr = 0; itr < StickVector.size(); itr++)
+	{
+		SetStickTexture(sticktex, StickVector[itr]);
+		StickVector[itr].Draw(300, 300);
+		glDisable(GL_TEXTURE_2D);
+	}
 
-	SetStickTexture(sticktex, StickVector[st1]);
-	StickVector[st1].Draw(300, 300);
-	glDisable(GL_TEXTURE_2D);
 }
 
 void updateView(int width, int height)

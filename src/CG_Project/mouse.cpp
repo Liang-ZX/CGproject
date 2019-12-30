@@ -3,7 +3,10 @@
 extern int g_window_width, g_window_height, gameState, sphereid_now, stickid_now;
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;
-
+int tmp_index;
+//used to designate the 2 spheres corresponding to the stick 
+int tmpSp1 = -1;
+int tmpSp2 = -1; 
 void MousFunc(int button, int state, int x, int y)
 {
 	mouseX = x;
@@ -71,7 +74,7 @@ void MousFunc(int button, int state, int x, int y)
 					GLuint *ptr = pickBuffer;
 					GLuint hitname;
 					unsigned int min_dist = 0xffffffff;
-					int tmp_index = -1;
+					tmp_index = -1;
 					while (hits != 0)
 					{
 						hitname = *ptr;
@@ -110,8 +113,25 @@ void MousFunc(int button, int state, int x, int y)
 					spnew = Sphere::spherecreate(0, 0, 0.0);
 					SphereVector[spnew].setRadius(1);
 					drawNewSphere = 0;
-
 				}
+
+				if (drawNewStick == 2) {
+					tmpSp1 = tmp_index < 100 ? tmp_index : -1;
+					if (tmpSp1 != -1)drawNewStick--;
+				}
+				if (drawNewStick == 1) {
+					tmpSp2 = tmp_index < 100 ? tmp_index : -1;
+					if (tmpSp2 != -1 && tmpSp2 != tmpSp1) {
+						int stnew;
+						stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
+						StickVector[stnew].setColor(1.0, 1.0, 1.0);
+						StickVector[stnew].setRadius(0.13);
+						tmpSp1 = -1;
+						tmpSp2 = -1;
+						drawNewStick = 0;
+					}
+				}
+
 			case GLUT_UP:
 				if (x > 0.85 * g_window_width)
 				{
