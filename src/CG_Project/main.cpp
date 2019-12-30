@@ -59,19 +59,27 @@ void initialize(void)
 	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
 	SphereVector[sp1].setRadius(1);
 	SphereVector[sp2].setRadius(0.5);
-	//st1 = Stick::stickcreate(SphereVector[sp1], SphereVector[sp2]);
-	//StickVector[st1].setColor(1.0, 1.0, 1.0);
-	//StickVector[st1].setRadius(0.13);
+	st1 = Stick::stickcreate(SphereVector[sp1], SphereVector[sp2]);
+	StickVector[st1].setColor(1.0, 1.0, 1.0);
+	StickVector[st1].setRadius(0.13);
 }
 
 void main_menu(int value) {
 
+	//printf("size : %d\n", SphereVector.size());
+
 	if (value == 1) {//clear screen
-		//while (SphereVector.size()>1)
+		initialize();
+		//while (SphereVector.size()>=1)
 		//{
-		//	SphereVector.pop_back();
+			//SphereVector.pop_back();
 		//}
-		//SphereVector.clear();
+		SphereVector.clear();
+		//SphereVector.resize(2);
+		StickVector.clear();
+		//StickVector.resize(1);
+		vector<Sphere>().swap(SphereVector);
+	    vector<Stick>().swap(StickVector);
 	}
 
 	if (value == 2) {//start draw
@@ -119,9 +127,9 @@ void size_menu(int value)
 	}
 }
 
-void draw_menu(int value) 
-{ 
-    switch (value)
+void draw_menu(int value)
+{
+	switch (value)
 	{
 	case 16:
 		drawNewSphere = 1;
@@ -239,23 +247,30 @@ void Draw_Scene()
 {
 	glShadeModel(GL_SMOOTH);
 	//background
-	Background(backgroundtex);
+	//Background(backgroundtex);
 
 	int itr;
-	for (itr = 0; itr<SphereVector.size();itr++)
-	{
-		SetSphereTexture(spheretex[itr], SphereVector[itr]);
-		SphereVector[itr].Draw(150, 200);
-		glDisable(GL_TEXTURE_2D);
-	}
 
-	for (itr = 0; itr < StickVector.size(); itr++)
+	
+	if (SphereVector.size() > 1)
 	{
-		SetStickTexture(sticktex, StickVector[itr]);
-		StickVector[itr].Draw(300, 300);
-		glDisable(GL_TEXTURE_2D);
+		for (itr = 0; itr < SphereVector.size(); itr++)
+		{
+			SetSphereTexture(spheretex[itr], SphereVector[itr]);
+			SphereVector[itr].Draw(150, 200);
+			glDisable(GL_TEXTURE_2D);
+		}
 	}
-
+	
+	if (StickVector.size() > 0)
+	{
+		for (itr = 0; itr < StickVector.size(); itr++)
+		{
+			SetStickTexture(sticktex, StickVector[itr]);
+			StickVector[itr].Draw(300, 300);
+			glDisable(GL_TEXTURE_2D);
+		}
+	}
 }
 
 void updateView(int width, int height)
@@ -310,6 +325,9 @@ float r_eye = 8.0;
 
 void redraw()
 {
+	//for debug
+	printf("spheresize : %d, sticksize : %d\n", SphereVector.size(), StickVector.size());
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0, 0, 0, 0);
 	glLoadIdentity();									// Reset The Current Modelview Matrix
@@ -332,6 +350,7 @@ void redraw()
 	}
 	else if (gameState == MAINWINDOW)
 	{
+		Background(backgroundtex);
 		Draw_Scene();						// Draw Scene	
 		commandbox.create();
 		button_control();
@@ -375,7 +394,7 @@ int main(int argc, char *argv[])
 	int sub_menu3 = glutCreateMenu(draw_menu);
 	glutAddMenuEntry("Draw a new sphere", 16);
 	glutAddMenuEntry("Draw a new stick", 17);
-	
+
 	int sub_menu4 = glutCreateMenu(zoom_menu);
 	glutAddMenuEntry("Zoom in", 21);
 	glutAddMenuEntry("Zoom out", 22);

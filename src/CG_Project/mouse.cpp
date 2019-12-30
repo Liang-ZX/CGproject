@@ -11,7 +11,26 @@ void MousFunc(int button, int state, int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
+	//
+	GLint viewport[4];
+	GLdouble mvmatrix[16], projmatrix[16];
+	GLint realy;
+	GLdouble wx, wy, wz;
+	//
 	if (button == GLUT_LEFT_BUTTON) {
+
+		//
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
+		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
+		realy = viewport[3] - y - 1;
+		printf("Coordinate at curosr are (%4d, %4d, %4d)\n", x, y, viewport[3]);
+		gluUnProject(x, realy, 0, mvmatrix, projmatrix, viewport, &wx, &wy, &wz);
+		printf("World coords at z=0 are (%f, %f, %f)\n", wx, wy, wz);
+		//gluUnProject(x, realy, 1, mvmatrix, projmatrix, viewport, &wx, &wy, &wz);
+		//printf("World coords at z=1 are (%f, %f, %f)\n", wx, wy, wz);
+		//
+
 		if (gameState == GAMESTART && state == GLUT_DOWN) {
 			//change the gameState
 			if (1.0*x / g_window_width >= 1.0 * 83 / 256 && 1.0*x / g_window_width <= 1.0 * 164 / 256
@@ -110,7 +129,7 @@ void MousFunc(int button, int state, int x, int y)
 				//draw new sphere
 				if (drawNewSphere == 1) {
 					int spnew;
-					spnew = Sphere::spherecreate(0, 0, 0.0);
+					spnew = Sphere::spherecreate(wx, wy, wz);
 					SphereVector[spnew].setRadius(1);
 					drawNewSphere = 0;
 				}
