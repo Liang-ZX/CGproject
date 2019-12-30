@@ -120,6 +120,7 @@
     <ClInclude Include="button_control.h" />
     <ClInclude Include="commandbox.h" />
     <ClInclude Include="objFile.h" />
+    <ClInclude Include="PrintText.h" />
     <ClInclude Include="screenshot.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="define.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="objFile.cpp" />
+    <ClCompile Include="PrintText.cpp" />
     <ClCompile Include="screenshot.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="stick.cpp" />

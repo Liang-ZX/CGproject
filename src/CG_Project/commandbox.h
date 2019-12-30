@@ -3,6 +3,7 @@
 
 #include "glut.h"
 #include "button.h"
+#include "PrintText.h"
 
 extern int quit_btn;
 extern int g_window_width;
