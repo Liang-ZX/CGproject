@@ -130,7 +130,7 @@ void MousFunc(int button, int state, int x, int y)
 				if (drawNewSphere == 1) {
 					int spnew;
 					spnew = Sphere::spherecreate(wx, wy, wz);
-					SphereVector[spnew].setRadius(1);
+					//SphereVector[spnew].setRadius(1);
 					drawNewSphere = 0;
 				}
 
@@ -140,7 +140,7 @@ void MousFunc(int button, int state, int x, int y)
 				}
 				if (drawNewStick == 1) {
 					tmpSp2 = tmp_index < 100 ? tmp_index : -1;
-					if (tmpSp2 != -1 && tmpSp2 != tmpSp1) {
+					if (tmpSp2 != -1 && tmpSp2 != tmpSp1 && SphereVector.size()>1) {
 						int stnew;
 						stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
 						StickVector[stnew].setColor(1.0, 1.0, 1.0);

@@ -12,9 +12,10 @@ int Sphere::spherecreate(float x, float y, float z)	//called only once for each 
 	tmpsp.setRadius(0.5);
 	SphereVector.push_back(tmpsp);
 
-	if (count!=0)
+	return count - 1;
+	/*if (count!=0)
 	{
 		return count - 1;
 	}
-	return count;
+	return count;*/
 }

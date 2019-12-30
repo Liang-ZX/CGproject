@@ -22,7 +22,13 @@ int Stick::stickcreate(Sphere sp1, Sphere sp2)
 {
 	Stick tmp = Stick(count++, sp1, sp2);
 	StickVector.push_back(tmp);
+	
 	return count - 1;
+	/*if (count != 0)
+	{
+		return count - 1;
+	}
+	return count;*/
 }
 
 void Stick::Draw(GLint iSlices, GLint iStacks)

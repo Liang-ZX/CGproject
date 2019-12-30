@@ -75,8 +75,10 @@ void main_menu(int value) {
 			//SphereVector.pop_back();
 		//}
 		SphereVector.clear();
+		Sphere::count = 0;
 		//SphereVector.resize(2);
 		StickVector.clear();
+		Stick::count = 0;
 		//StickVector.resize(1);
 		vector<Sphere>().swap(SphereVector);
 	    vector<Stick>().swap(StickVector);
@@ -116,12 +118,12 @@ void size_menu(int value)
 	switch (value)
 	{
 	case 10:
-		SphereVector[sphereid_now].setRadius(SphereVector[0].getRadius() + 0.1);
+		SphereVector[sphereid_now].setRadius(SphereVector[sphereid_now].getRadius() + 0.1);
 		break;
 	case 11:
 		if (SphereVector[sphereid_now].getRadius() > 0.4)
 		{
-			SphereVector[sphereid_now].setRadius(SphereVector[0].getRadius() - 0.1);
+			SphereVector[sphereid_now].setRadius(SphereVector[sphereid_now].getRadius() - 0.1);
 		}
 		break;
 	}
@@ -252,7 +254,7 @@ void Draw_Scene()
 	int itr;
 
 	
-	if (SphereVector.size() > 1)
+	if (SphereVector.size() > 0)
 	{
 		for (itr = 0; itr < SphereVector.size(); itr++)
 		{
@@ -326,7 +328,7 @@ float r_eye = 8.0;
 void redraw()
 {
 	//for debug
-	printf("spheresize : %d, sticksize : %d\n", SphereVector.size(), StickVector.size());
+	//printf("spheresize : %d, sticksize : %d\n", SphereVector.size(), StickVector.size());
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0, 0, 0, 0);
