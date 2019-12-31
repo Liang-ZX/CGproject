@@ -1,134 +1,134 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="initialize.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mouse.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="project.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="define.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="gl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glu.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glut.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="sphere.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="stick.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="material.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="glew.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="keyboard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="skybox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="background.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="commandbox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="screenshot.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SOIL.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="button_control.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="objFile.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="viewmatrix.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="initialize.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="background.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="commandbox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="screenshot.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="button_control.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="commandbox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="initialize.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="objFile.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintText.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="screenshot.cpp">
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="sphere.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="stick.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="viewmatrix.cpp">
-      <Filter>源文件</Filter>
+      <Filter>source</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="background.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="button_control.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="commandbox.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="gl.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="glew.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="glu.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="glut.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="initialize.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="project.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="objFile.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintText.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="screenshot.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="SOIL.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="stick.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="viewmatrix.h">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{0c5a349b-361e-4d9b-bea2-ec8c387e8774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{6b6d21fe-8f2f-4f80-ae3a-55e61dbabe4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="SOIL.lib">
-      <Filter>头文件</Filter>
+      <Filter>header</Filter>
     </Library>
   </ItemGroup>
 </Project>
