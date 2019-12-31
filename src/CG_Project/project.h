@@ -31,6 +31,8 @@ using namespace std;
 extern int g_window_width;
 extern int g_window_height;
 
+extern int NowRenderMode;
+
 extern float r_eye;
 extern float eye[3];
 extern float center[3];

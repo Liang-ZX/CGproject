@@ -4,10 +4,12 @@
 #include "math.h"
 #include "sphere.h"
 #include <vector>
+#include "viewmatrix.h"
 
 extern GLfloat ctrlpointsA[3][4];
 extern int g_window_width;
 extern int g_window_height;
+extern int NowRenderMode;
 
 class Stick
 {
@@ -32,7 +34,7 @@ public:
 		this->id = id;
 		this->sp1 = sp1;
 		this->sp2 = sp2;
-		this->doublebond = false;
+		this->doublebond = true;
 		for (int i = 0; i < 3; i++)color[i] = 0.0f;
 		radius = 0.0f;
 		stMaterial.ambient[0] = 0.1;

@@ -1,4 +1,5 @@
 #include "mouse.h"
+#include "viewmatrix.h"
 
 extern int g_window_width, g_window_height, gameState, sphereid_now, stickid_now;
 float yaw = 0, pitch = 0;
@@ -7,29 +8,25 @@ int tmp_index;
 //used to designate the 2 spheres corresponding to the stick 
 int tmpSp1 = -1;
 int tmpSp2 = -1; 
+int NowRenderMode = GL_RENDER;
 void MousFunc(int button, int state, int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
 	//
-	GLint viewport[4];
-	GLdouble mvmatrix[16], projmatrix[16];
-	GLint realy;
-	GLdouble wx, wy, wz;
+	GLfloat winx, winy, winz;
+	GLdouble posx, posy, posz;
 	//
 	if (button == GLUT_LEFT_BUTTON) {
 
-		//
+		glPushMatrix();
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
 		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
-		realy = viewport[3] - y - 1;
-		printf("Coordinate at curosr are (%4d, %4d, %4d)\n", x, y, viewport[3]);
-		gluUnProject(x, realy, 0, mvmatrix, projmatrix, viewport, &wx, &wy, &wz);
-		printf("World coords at z=0 are (%f, %f, %f)\n", wx, wy, wz);
-		//gluUnProject(x, realy, 1, mvmatrix, projmatrix, viewport, &wx, &wy, &wz);
-		//printf("World coords at z=1 are (%f, %f, %f)\n", wx, wy, wz);
-		//
+		glPopMatrix();
+		
+		winx = x; winy = g_window_height - y; winz = 0;
+		gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz);
 
 		if (gameState == GAMESTART && state == GLUT_DOWN) {
 			//change the gameState
@@ -54,10 +51,10 @@ void MousFunc(int button, int state, int x, int y)
 				}
 				else {
 					GLuint pickBuffer[256];
-					GLint viewport[4];
 
 					glSelectBuffer(256, pickBuffer);
 					glRenderMode(GL_SELECT);
+					NowRenderMode = GL_SELECT;
 					glInitNames();
 					glMatrixMode(GL_PROJECTION);
 					glPushMatrix();
@@ -90,6 +87,7 @@ void MousFunc(int button, int state, int x, int y)
 					glPopMatrix();
 					glMatrixMode(GL_MODELVIEW);
 					GLint hits = glRenderMode(GL_RENDER);
+					NowRenderMode = GL_RENDER;
 					GLuint *ptr = pickBuffer;
 					GLuint hitname;
 					unsigned int min_dist = 0xffffffff;
@@ -128,27 +126,25 @@ void MousFunc(int button, int state, int x, int y)
 
 				//draw new sphere
 				if (drawNewSphere == 1) {
-					int spnew;
-					spnew = Sphere::spherecreate(wx, wy, wz);
-					//SphereVector[spnew].setRadius(1);
+					Sphere::spherecreate(posx, posy, posz);
 					drawNewSphere = 0;
 				}
 
 				if (drawNewStick == 2) {
 					tmpSp1 = tmp_index < 100 ? tmp_index : -1;
-					if (tmpSp1 != -1)drawNewStick--;
+					if (tmpSp1 != -1)
+						drawNewStick--;
 				}
 				if (drawNewStick == 1) {
 					tmpSp2 = tmp_index < 100 ? tmp_index : -1;
 					if (tmpSp2 != -1 && tmpSp2 != tmpSp1 && SphereVector.size()>1) {
-						int stnew;
-						stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
+						int stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
 						StickVector[stnew].setColor(1.0, 1.0, 1.0);
 						StickVector[stnew].setRadius(0.13);
 						tmpSp1 = -1;
 						tmpSp2 = -1;
-						drawNewStick = 0;
 					}
+					drawNewStick = 0;
 				}
 
 			case GLUT_UP:
@@ -163,43 +159,6 @@ void MousFunc(int button, int state, int x, int y)
 		}
 
 	}
-	/*
-if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-{
-	if (gameState == MAINWINDOW)
-	{
-		GLuint pickBuffer[50];
-		GLint viewport[4];
-
-		glSelectBuffer(10, pickBuffer);
-		glRenderMode(GL_SELECT);
-		glInitNames();
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		gluPickMatrix(GLdouble(x), GLdouble(viewport[3] - y), 2.0, 2.0, viewport);
-
-		if (bPersp)
-			gluPerspective(45.0f, wWidth / wHeight, 0.1f, 100.0f);
-		else
-			glOrtho(-3, 3, -3, 3, -100, 100);
-		glMatrixMode(GL_MODELVIEW);
-		redraw();
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		GLint hits = glRenderMode(GL_RENDER);
-		GLuint *ptr = pickBuffer;
-		while (hits != 0)
-		{
-			ptr += 4;
-			hits--;
-		}
-	}
-}*/
-
 	return;
 }
 

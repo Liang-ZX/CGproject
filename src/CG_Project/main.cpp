@@ -54,6 +54,11 @@ void initialize(void)
 	quit_btn = Button::create(0, 9.5);
 	screenshot_button = Button::create(0, 9);
 	obj_button = Button::create(0, 8.5);
+}
+
+static void draw_testscene(void)
+{
+	initialize();
 
 	sp1 = Sphere::spherecreate(1.1, 0.0, 0.0);
 	sp2 = Sphere::spherecreate(-1.0, 0.0, 0.0);
@@ -70,18 +75,10 @@ void main_menu(int value) {
 
 	if (value == 1) {//clear screen
 		initialize();
-		//while (SphereVector.size()>=1)
-		//{
-			//SphereVector.pop_back();
-		//}
-		SphereVector.clear();
+		SphereVector.erase(SphereVector.begin(), SphereVector.end());
 		Sphere::count = 0;
-		//SphereVector.resize(2);
-		StickVector.clear();
+		StickVector.erase(StickVector.begin(), StickVector.end());
 		Stick::count = 0;
-		//StickVector.resize(1);
-		vector<Sphere>().swap(SphereVector);
-	    vector<Stick>().swap(StickVector);
 	}
 
 	if (value == 2) {//start draw
@@ -375,7 +372,7 @@ int main(int argc, char *argv[])
 	glutInitWindowSize(g_window_width, g_window_height);
 	int windowHandle = glutCreateWindow("3D Material Structure");
 
-	initialize();
+	draw_testscene();
 	glutDisplayFunc(redraw);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(key);

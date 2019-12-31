@@ -11,9 +11,6 @@ static GLdouble cal_normal(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLflo
 	return acos(n / m) / PI * 180;
 }
 
-static GLint viewport[4];
-static GLdouble mvmatrix[16], projmatrix[16];
-
 std::vector<Stick> StickVector;
 
 static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius); //direction是健上凹的方向
@@ -24,11 +21,6 @@ int Stick::stickcreate(Sphere sp1, Sphere sp2)
 	StickVector.push_back(tmp);
 	
 	return count - 1;
-	/*if (count != 0)
-	{
-		return count - 1;
-	}
-	return count;*/
 }
 
 void Stick::Draw(GLint iSlices, GLint iStacks)
@@ -43,6 +35,7 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 		quad_obj = gluNewQuadric();
 	gluQuadricDrawStyle(quad_obj, GLU_FILL);
 	gluQuadricNormals(quad_obj, GLU_SMOOTH);
+
 	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(color[0], color[1], color[2]);
 
@@ -103,57 +96,73 @@ static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, 
 	ctrlpointsA[1][2] = (sp1.getZ() + sp2.getZ()) / 2.0 + 0.5 * flag;
 	ctrlpointsA[1][3] = 1.0;
 
+	glPushMatrix();
+
 	glMap1f(GL_MAP1_VERTEX_4, 0.0, 1.0, 4, 3, &ctrlpointsA[0][0]);
 	glEnable(GL_MAP1_VERTEX_4);
-	//glBegin(GL_LINE_STRIP);
 
-
-	GLfloat buffer[300];
-	glFeedbackBuffer(300, GL_3D, buffer);
-	glRenderMode(GL_FEEDBACK);
-	//glPointSize(0.4);
-	glBegin(GL_POINTS);
-	int division = 30;
-	for (int i = 0; i <= division; i++)
+	if (NowRenderMode == GL_RENDER)
 	{
-		glEvalCoord1f((GLfloat)i / division);
-	}
-	glEnd();
-	glDisable(GL_MAP2_VERTEX_4);
+		GLfloat buffer[300];
+		glFeedbackBuffer(300, GL_3D, buffer);
 
-	int size = glRenderMode(GL_RENDER);
+		glRenderMode(GL_FEEDBACK);
+		//glPointSize(0.4);
+		glBegin(GL_POINTS);
+		int division = 30;
+		for (int i = 0; i <= division; i++)
+		{
+			glEvalCoord1f((GLfloat)i / division);
+		}
+		glEnd();
+		glDisable(GL_MAP2_VERTEX_4);
 
-	glPushMatrix();
+		int size = glRenderMode(GL_RENDER);
 
-	GLfloat winx, winy, winz;
-	GLdouble posx, posy, posz;
-	GLdouble lastx = sp1.getX(), lasty = sp1.getY(), lastz = sp1.getZ();
-
-	glPushMatrix();
-	glGetIntegerv(GL_VIEWPORT, viewport);   /* 获取三个矩阵 */
-	glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
-	glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
-	glPopMatrix();
-
-	for (int j = 0; j < size / 4 - 1; j++)
-	{
-		winx = buffer[j * 4 + 1];
-		winy = g_window_height - buffer[j * 4 + 2];
-		winz = buffer[j * 4 + 3];
-
-		gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz); /* 获取三维坐标 */
-		posz = -posz;
-		GLdouble angle = cal_normal(division * (posx - lastx), division * (posy - lasty), division * (posz - lastz), 0, 1, 0);
 		glPushMatrix();
-		glTranslatef(posx, posy, posz);
-		glRotatef(angle, 0, 0, 1);
-		glRotatef(-90, 1, 0, 0);
-		gluCylinder(quad_obj, radius, radius, 0.1, 150, 200);
+
+		GLfloat winx, winy, winz;
+		GLdouble posx, posy, posz;
+		GLdouble lastx = sp1.getX(), lasty = sp1.getY(), lastz = sp1.getZ();
+
+		glPushMatrix();
+		glGetIntegerv(GL_VIEWPORT, viewport);   // 获取三个矩阵 
+		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
+		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
 		glPopMatrix();
 
-		lastx = posx;
-		lasty = posy;
-		lastz = posz;
+		for (int j = 0; j < size / 4 - 1; j++)
+		{
+			winx = buffer[j * 4 + 1];
+			winy = g_window_height - buffer[j * 4 + 2];
+			winz = buffer[j * 4 + 3];
+
+			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz); // 获取三维坐标 
+			posz = -posz;
+			GLdouble angle = cal_normal(division * (posx - lastx), division * (posy - lasty), division * (posz - lastz), 0, 1, 0);
+			glPushMatrix();
+			glTranslatef(posx, posy, posz);
+			glRotatef(angle, 0, 0, 1);
+			glRotatef(-90, 1, 0, 0);
+			gluCylinder(quad_obj, radius, radius, 0.1, 150, 200);
+			glPopMatrix();
+
+			lastx = posx;
+			lasty = posy;
+			lastz = posz;
+		}
+		glPopMatrix();
+	}
+	else {
+		glBegin(GL_LINE_STRIP);
+		glLineWidth(10);
+		int division = 30;
+		for (int i = 0; i <= division; i++)
+		{
+			glEvalCoord1f((GLfloat)i / division);
+		}
+		glEnd();
+		glDisable(GL_MAP2_VERTEX_4);
 	}
 	glPopMatrix();
 }

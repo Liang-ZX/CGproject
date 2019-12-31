@@ -13,9 +13,4 @@ int Sphere::spherecreate(float x, float y, float z)	//called only once for each 
 	SphereVector.push_back(tmpsp);
 
 	return count - 1;
-	/*if (count!=0)
-	{
-		return count - 1;
-	}
-	return count;*/
 }

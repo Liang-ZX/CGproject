@@ -137,6 +137,7 @@
     <ClInclude Include="sphere.h" />
     <ClInclude Include="stick.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="viewmatrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="screenshot.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="stick.cpp" />
+    <ClCompile Include="viewmatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="SOIL.lib" />
