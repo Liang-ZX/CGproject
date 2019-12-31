@@ -126,7 +126,8 @@ void MousFunc(int button, int state, int x, int y)
 
 				//draw new sphere
 				if (drawNewSphere == 1) {
-					Sphere::spherecreate(posx, posy, posz);
+					int spnew = Sphere::spherecreate(0, 0, 0);
+					changePosition(spnew);
 					drawNewSphere = 0;
 				}
 
@@ -185,6 +186,7 @@ void PassiveMotion(int x, int y)
 		eye[0] = r_eye * sin(yaw);
 		eye[1] = r_eye * cos(yaw) * sin(pitch);
 		eye[2] = r_eye * cos(yaw) * cos(pitch);
+		changeView();
 		redraw();
 	}
 }

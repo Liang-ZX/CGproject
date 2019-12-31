@@ -43,6 +43,9 @@
     <ClCompile Include="viewmatrix.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionDetection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h">
@@ -115,6 +118,9 @@
       <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="viewmatrix.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetection.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>

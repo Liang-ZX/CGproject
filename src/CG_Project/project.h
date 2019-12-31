@@ -24,6 +24,7 @@
 #include "windows.h"
 #include "button.h"
 #include "button_control.h"
+#include "CollisionDetection.h"
 using namespace std;
 //#include "view.h"
 

@@ -1,4 +1,5 @@
 #include "keyboard.h"
+#include "CollisionDetection.h"
 #define LIGHT_STEP  1
 extern Light light[8];
 extern GLint light_cur;
@@ -15,31 +16,62 @@ void key(unsigned char k, int x, int y)
 		case ' ': {bAnim = !bAnim; break; }
 
 		case 'a': {
-			eye[0] += 0.1;
-			center[0] += 0.1;
+			if (isLegalToMoveView()) {
+				eye[0] += 0.1;
+				center[0] += 0.1;
+			}
+			else {
+				eye[0] += -0.1;
+				center[0] += -0.1;
+			}
 			break;
 		}
 		case 'd': {
-			eye[0] += -0.1;
-			center[0] += -0.1;
+			if (isLegalToMoveView()) {
+				eye[0] += -0.1;
+				center[0] += -0.1;
+			}
+			else {
+				eye[0] += 0.1;
+				center[0] += 0.1;
+			}
 			break;
 		}
 		case 'w': {
-			eye[1] += -0.1;
-			center[1] += -0.1;
+			if (isLegalToMoveView()) {
+				eye[1] += -0.1;
+				center[1] += -0.1;
+			}
+			else {
+				eye[1] += 0.1;
+				center[1] += 0.1;
+			}
+			
 			break;
 		}
 		case 's': {
-			eye[1] += 0.1;
-			center[1] += 0.1;
+			if (isLegalToMoveView()) {
+				eye[1] += 0.1;
+				center[1] += 0.1;
+			}
+			else {
+				eye[1] += -0.1;
+				center[1] += -0.1;
+			}
 			break;
 		}
 		case 'z': {
-			eye[2] += -0.1;
+			if (isLegalToMoveView())
+				eye[2] += -0.1;
+			else
+				eye[2] += 0.1;
 			break;
 		}
 		case 'c': {
-			eye[2] += 0.1;
+			if (isLegalToMoveView())
+				eye[2] += 0.1;
+			else 
+				eye[2] += -0.1;
 			break;
 		}
 		case 'f': {

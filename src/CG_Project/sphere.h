@@ -49,7 +49,12 @@ public:
 		position[1] = y;
 		position[2] = z;
 	}
-
+	void changePosition(GLfloat x, GLfloat y, GLfloat z)
+	{
+		position[0] +=x;
+		position[1] += y;
+		position[2] += z;
+	}
 	void setRadius(GLfloat r){ radius = r; }
 
 	void setColor(GLfloat r, GLfloat g, GLfloat b)
