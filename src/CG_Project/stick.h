@@ -34,7 +34,7 @@ public:
 		this->id = id;
 		this->sp1 = sp1;
 		this->sp2 = sp2;
-		this->doublebond = true;
+		this->doublebond = false;
 		for (int i = 0; i < 3; i++)color[i] = 0.0f;
 		radius = 0.0f;
 		stMaterial.ambient[0] = 0.1;
@@ -60,6 +60,8 @@ public:
 		color[1] = g;
 		color[2] = b;
 	}
+
+	bool getDoubleBond() { return doublebond; }
 
 	void setDoublebone(bool state)
 	{

@@ -13,7 +13,7 @@ static GLdouble cal_normal(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLflo
 
 std::vector<Stick> StickVector;
 
-static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius); //directionÊÇ½¡ÉÏ°¼µÄ·½Ïò
+static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius); //directionï¿½Ç½ï¿½ï¿½Ï°ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 
 int Stick::stickcreate(Sphere sp1, Sphere sp2)
 {
@@ -44,8 +44,38 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 
 	if (doublebond == true)
 	{
-		drawbond(1, sp1, sp2, quad_obj, radius);	//draw double bonds
-		drawbond(-1, sp1, sp2, quad_obj, radius);
+
+		//used to debug
+		glTranslatef(sp1.getX(), sp1.getY(), sp1.getZ());
+		vecX /= stlength;
+		vecY /= stlength;
+		vecZ /= stlength;
+
+		GLfloat up_x, up_y, up_z;
+		up_x = 0.0;
+		up_y = 1.0;
+		up_z = 0.0;
+		GLfloat side_x, side_y, side_z;
+		side_x = up_y * vecZ - up_z * vecY;
+		side_y = up_z * vecX - up_x * vecZ;
+		side_z = up_x * vecY - up_y * vecX;
+		GLfloat length = sqrt(side_x * side_x + side_y * side_y + side_z * side_z);
+		side_x /= length; side_y /= length; side_z /= length;
+		up_x = vecY * side_z - vecZ * side_y;
+		up_y = vecZ * side_x - vecX * side_z;
+		up_z = vecX * side_y - vecY * side_x;
+		GLdouble m[16] = { side_x, side_y, side_z, 0.0,
+			up_x, up_y, up_z, 0.0,
+			vecX, vecY, vecZ, 0.0,
+			0.0,  0.0,  0.0,  1.0 };
+		glMultMatrixd(m);
+		GLdouble slices = 8.0;
+		GLdouble stack = 3.0;
+		gluCylinder(quad_obj, 2*radius, 2*radius, stlength, iSlices, iStacks);
+
+
+		//drawbond(1, sp1, sp2, quad_obj, radius);	//draw double bonds
+		//drawbond(-1, sp1, sp2, quad_obj, radius);
 	}
 	else {
 		glTranslatef(sp1.getX(), sp1.getY(), sp1.getZ());
@@ -126,7 +156,7 @@ static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, 
 		GLdouble lastx = sp1.getX(), lasty = sp1.getY(), lastz = sp1.getZ();
 
 		glPushMatrix();
-		glGetIntegerv(GL_VIEWPORT, viewport);   // »ñÈ¡Èý¸ö¾ØÕó 
+		glGetIntegerv(GL_VIEWPORT, viewport);   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
 		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
 		glPopMatrix();
@@ -137,7 +167,7 @@ static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, 
 			winy = g_window_height - buffer[j * 4 + 2];
 			winz = buffer[j * 4 + 3];
 
-			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz); // »ñÈ¡ÈýÎ¬×ø±ê 
+			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz); // ï¿½ï¿½È¡ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ 
 			posz = -posz;
 			GLdouble angle = cal_normal(division * (posx - lastx), division * (posy - lasty), division * (posz - lastz), 0, 1, 0);
 			glPushMatrix();
