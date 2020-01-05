@@ -16,9 +16,9 @@ public:
 
 class Face {
 public:
-	int v[3];
-	int vt[3];
-	int vn[3];
+	int v[4];
+	int vt[4];
+	int vn[4];
 };
 
 class myObjLoader {

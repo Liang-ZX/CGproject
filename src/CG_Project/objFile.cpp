@@ -73,8 +73,21 @@ myObjLoader::myObjLoader(string objfilename) {
 			f.vt[2] = stoi(line.substr(t1, t2)) - 1;
 
 			t1 = t2 + 1;
+			t2 = line.find_first_of(' ', t1);
+			f.vn[2] = stoi(line.substr(t1, t2)) - 1;
+
+			//forth vertex
+			t1 = t2 + 1;
+			t2 = line.find_first_of('/', t1);
+			f.v[3] = stoi(line.substr(t1, t2)) - 1;
+
+			t1 = t2 + 1;
+			t2 = line.find_first_of('/', t1);
+			f.vt[3] = stoi(line.substr(t1, t2)) - 1;
+
+			t1 = t2 + 1;
 			//t2 = line.find_first_of(' ', t1);
-			f.vn[2] = stoi(line.substr(t1)) - 1;
+			f.vn[3] = stoi(line.substr(t1)) - 1;
 
 			Faces.push_back(f);
 		}
@@ -90,7 +103,8 @@ myObjLoader::myObjLoader(string objfilename) {
 void myObjLoader::Draw() {
 	//draw all faces
 	//glBindTexture(GL_TEXTURE_2D, texture);
-	glBegin(GL_TRIANGLES);
+	//glBegin(GL_TRIANGLES);
+	glBegin(GL_QUADS);
 	for (int i = 0; i < Faces.size(); i++) {
 		//first vertex
 		glNormal3f(Normals[Faces[i].vn[0]].x, Normals[Faces[i].vn[0]].y, Normals[Faces[i].vn[0]].z);
@@ -104,6 +118,10 @@ void myObjLoader::Draw() {
 		glNormal3f(Normals[Faces[i].vn[2]].x, Normals[Faces[i].vn[2]].y, Normals[Faces[i].vn[2]].z);
 		//glTexCoord2f(tVertices[Faces[i].vt[2]].x, tVertices[Faces[i].vt[2]].y);
 		glVertex3f(Vertices[Faces[i].v[2]].x, Vertices[Faces[i].v[2]].y, Vertices[Faces[i].v[2]].z);
+		//forth vertex
+		glNormal3f(Normals[Faces[i].vn[3]].x, Normals[Faces[i].vn[3]].y, Normals[Faces[i].vn[3]].z);
+		//glTexCoord2f(tVertices[Faces[i].vt[3]].x, tVertices[Faces[i].vt[3]].y);
+		glVertex3f(Vertices[Faces[i].v[3]].x, Vertices[Faces[i].v[3]].y, Vertices[Faces[i].v[3]].z);
 	}
 	glEnd();
 }
