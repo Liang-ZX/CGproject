@@ -1,4 +1,5 @@
 #include "project.h"
+#include "objFile.h"
 
 float fTranslate = 0.0f;
 float fRotate = 0.0f;
@@ -249,6 +250,8 @@ void Draw_Scene()
 	//Background(backgroundtex);
 
 	int itr;
+	myObjLoader obj0("cube.obj");
+	obj0.Draw();
 
 	
 	if (SphereVector.size() > 0)
