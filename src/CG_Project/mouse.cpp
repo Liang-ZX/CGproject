@@ -1,7 +1,9 @@
 #include "mouse.h"
 #include "viewmatrix.h"
+#define BUFSIZE 512
 
 extern int g_window_width, g_window_height, gameState, sphereid_now, stickid_now;
+int move_sphere = 0, move_stick = 0;
 float yaw = 0, pitch = 0;
 float mouseX, mouseY;
 int tmp_index;
@@ -17,6 +19,7 @@ void MousFunc(int button, int state, int x, int y)
 	GLfloat winx, winy, winz;
 	GLdouble posx, posy, posz;
 	//
+
 	if (button == GLUT_LEFT_BUTTON) {
 
 		glPushMatrix();
@@ -92,6 +95,7 @@ void MousFunc(int button, int state, int x, int y)
 					GLuint hitname;
 					unsigned int min_dist = 0xffffffff;
 					tmp_index = -1;
+					printf("hits:%d\n", hits);
 					while (hits != 0)
 					{
 						hitname = *ptr;
@@ -110,8 +114,9 @@ void MousFunc(int button, int state, int x, int y)
 					if (tmp_index < 100)
 					{
 						printf("Sphere: %d\n", tmp_index);
+						
 						if (tmp_index != -1)
-						{
+						{	move_sphere = 1;
 							sphereid_now = tmp_index;
 							//printf("sphereid: %d\n", sphereid_now);
 							//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	
@@ -119,11 +124,12 @@ void MousFunc(int button, int state, int x, int y)
 					}
 					else if (tmp_index < 200)
 					{
+						move_stick = 1;
 						printf("Stick: %d\n", tmp_index - 100);
 						stickid_now = tmp_index - 100;
 					}
 				}
-
+				//printf("%d %d\n", move_sphere, move_stick);
 				//draw new sphere
 				if (drawNewSphere == 1) {
 					int spnew = Sphere::spherecreate(0, 0, 0);
@@ -152,7 +158,10 @@ void MousFunc(int button, int state, int x, int y)
 					if (StickVector[tmp_index - 100].getDoubleBond() == TRUE) StickVector[tmp_index - 100].setDoublebone(FALSE);
 					else StickVector[tmp_index - 100].setDoublebone(TRUE);
 				}
+				break;
 			case GLUT_UP:
+				move_sphere = 0;
+				move_stick = 0;
 				if (x > 0.85 * g_window_width)
 				{
 					Btn[0].OnMouseUp();
@@ -160,6 +169,8 @@ void MousFunc(int button, int state, int x, int y)
 					Btn[obj_button].OnMouseUp();
 					break;
 				}
+				
+				break;
 			}
 		}
 
@@ -169,24 +180,54 @@ void MousFunc(int button, int state, int x, int y)
 
 void PassiveMotion(int x, int y)
 {
+	GLint viewport[4];
+	GLdouble modelview[16];
+	GLdouble projection[16];
+	GLdouble winX, winY, winZ;
+	GLdouble posX, posY, posZ;
+
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	float cx = SphereVector[sphereid_now].getX();
+	float cy = SphereVector[sphereid_now].getY();
+	float cz = SphereVector[sphereid_now].getZ();
+	gluProject(cx, cy, cz, modelview, projection, viewport, &winX, &winY, &winZ);
+	winX = (float)x;
+	winY = (float)viewport[3] - (float)y;
+	//glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+	gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+	//gluUnProject(winX, winY, 1.0, modelview, projection, viewport, &posX2, &posY2, &posZ2);
+	//cout << posX << posY << posZ << endl;
+	//printf("%d %d\n", move_sphere, move_stick);
 	if (gameState == MAINWINDOW)
 	{
-		yaw = yaw - 2 * PI * (x - mouseX) / wWidth;
-		pitch = pitch + PI * (y - mouseY) / wHeight;
-		if (pitch >= PI / 2)
-			pitch = PI / 2 - 0.02;
-		else if (pitch <= -PI / 2)
-			pitch = -PI / 2 + 0.02;
-		mouseX = x;
-		mouseY = y;
-		/*eye[0] = 8 * sin(yaw);
-		eye[1] = 8 * cos(yaw) * sin(pitch);
-		eye[2] = 8 * cos(yaw) * cos(pitch);*/
-		r_eye = sqrt(eye[0] * eye[0] + eye[1] * eye[1] + eye[2] * eye[2]);
-		eye[0] = r_eye * sin(yaw);
-		eye[1] = r_eye * cos(yaw) * sin(pitch);
-		eye[2] = r_eye * cos(yaw) * cos(pitch);
-		changeView();
-		redraw();
+		if (!move_sphere && !move_stick) {
+			yaw = yaw - 2 * PI * (x - mouseX) / wWidth;
+			pitch = pitch + PI * (y - mouseY) / wHeight;
+			if (pitch >= PI / 2)
+				pitch = PI / 2 - 0.02;
+			else if (pitch <= -PI / 2)
+				pitch = -PI / 2 + 0.02;
+			mouseX = x;
+			mouseY = y;
+			/*eye[0] = 8 * sin(yaw);
+			eye[1] = 8 * cos(yaw) * sin(pitch);
+			eye[2] = 8 * cos(yaw) * cos(pitch);*/
+			r_eye = sqrt(eye[0] * eye[0] + eye[1] * eye[1] + eye[2] * eye[2]);
+			eye[0] = r_eye * sin(yaw);
+			eye[1] = r_eye * cos(yaw) * sin(pitch);
+			eye[2] = r_eye * cos(yaw) * cos(pitch);
+			changeView();
+			redraw();
+		}
+		else if (move_sphere) {
+			if (isLegalToMove(sphereid_now))
+				SphereVector[sphereid_now].setPosition(posX, posY, posZ);
+		}
+		else {
+			;
+		}
 	}
 }

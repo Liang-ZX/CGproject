@@ -2,6 +2,7 @@
 #define INTEVAL 0.1
 #define STEP 2.0
 #define VIEW 1.2
+#define SPHERE_INTEVEL 0.1
 extern vector<Sphere> SphereVector;
 extern float eye[3], r_eye;
 // 检测两个球之间，true 为碰撞
@@ -31,8 +32,17 @@ bool isLegalToMove(int cur) {
 	int size = SphereVector.size();
 		for (int i = 0; i < size; i++) {
 			if (i != cur)
-				if (check_collision(i, cur))
+				if (check_collision(i, cur)) {
+					int xsign = SphereVector[cur].getX() - SphereVector[i].getX() > 0 ? 1 : 0;
+					int ysign = SphereVector[cur].getY() - SphereVector[i].getY() > 0 ? 1 : 0;
+					int zsign = SphereVector[cur].getZ() - SphereVector[i].getZ() > 0 ? 1 : 0;
+					while (check_collision(i,cur)) {
+						SphereVector[cur].changePosition(xsign*SPHERE_INTEVEL, ysign*SPHERE_INTEVEL, zsign*SPHERE_INTEVEL);
+						//printf("CHANGE_SPHERE\n");
+					}
 					return false;
+				}
+					
 	}
 		return true;
 }

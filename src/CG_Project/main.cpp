@@ -9,7 +9,7 @@ bool bAnim = false;
 
 int wHeight = 0;
 int wWidth = 0;
-
+extern int move_sphere, move_stick;
 //fullscreen
 bool g_fullscreen = false;// 全屏标志缺省，缺省设定成全屏模式
 int g_window_width = 700;
@@ -255,6 +255,8 @@ void Draw_Scene()
 	{
 		for (itr = 0; itr < SphereVector.size(); itr++)
 		{
+			//if (mode == GL_SELECT)
+				//glLoadName(itr);
 			SetSphereTexture(spheretex[itr], SphereVector[itr]);
 			SphereVector[itr].Draw(150, 200);
 			glDisable(GL_TEXTURE_2D);
@@ -349,6 +351,7 @@ void redraw()
 	}
 	else if (gameState == MAINWINDOW)
 	{
+
 		Background(backgroundtex);
 		Draw_Scene();						// Draw Scene	
 		commandbox.create();
