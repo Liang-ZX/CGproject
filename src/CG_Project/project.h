@@ -41,6 +41,7 @@ extern int wHeight;
 extern int wWidth;
 extern bool bPersp;
 extern bool bAnim;
+extern bool bLoad;
 extern int gameState;
 
 // used to indicate click to draw a new sphere or stick

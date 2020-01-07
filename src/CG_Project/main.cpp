@@ -7,6 +7,7 @@ float fScale = 1.0f;	// set inital scale value to 1.0f
 
 bool bPersp = true;
 bool bAnim = false;
+bool bLoad = false;
 
 int wHeight = 0;
 int wWidth = 0;
@@ -250,9 +251,11 @@ void Draw_Scene()
 	//Background(backgroundtex);
 
 	int itr;
-	//myObjLoader obj0("cube.obj");
-	//obj0.Draw();
-
+	
+	if (bLoad) {
+		myObjLoader obj0("cube.obj");
+		obj0.Draw();
+	}
 	
 	if (SphereVector.size() > 0)
 	{

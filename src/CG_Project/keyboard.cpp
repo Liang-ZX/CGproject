@@ -15,6 +15,8 @@ void key(unsigned char k, int x, int y)
 
 		case ' ': {bAnim = !bAnim; break; }
 
+		case'x': {bLoad = !bLoad; break; }
+
 		case 'a': {
 			if (isLegalToMoveView()) {
 				eye[0] += 0.1;
