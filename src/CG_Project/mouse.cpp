@@ -9,7 +9,7 @@ float mouseX, mouseY;
 int tmp_index;
 //used to designate the 2 spheres corresponding to the stick 
 int tmpSp1 = -1;
-int tmpSp2 = -1; 
+int tmpSp2 = -1;
 int NowRenderMode = GL_RENDER;
 void MousFunc(int button, int state, int x, int y)
 {
@@ -27,7 +27,7 @@ void MousFunc(int button, int state, int x, int y)
 		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
 		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
 		glPopMatrix();
-		
+
 		winx = x; winy = g_window_height - y; winz = 0;
 		gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz);
 
@@ -69,7 +69,7 @@ void MousFunc(int button, int state, int x, int y)
 					//update view
 					int height = g_window_height;
 					int draw_width = commandbox.box_percent * g_window_width;
-					
+
 					float whRatio = (GLfloat)draw_width / (GLfloat)height;
 
 					if (bPersp) {
@@ -108,15 +108,16 @@ void MousFunc(int button, int state, int x, int y)
 								tmp_index = *ptr;
 							}
 						}
-						ptr+=hitname;
+						ptr += hitname;
 						hits--;
 					}
 					if (tmp_index < 100)
 					{
 						printf("Sphere: %d\n", tmp_index);
-						
+
 						if (tmp_index != -1)
-						{	move_sphere = 1;
+						{
+							move_sphere = 1;
 							sphereid_now = tmp_index;
 							//printf("sphereid: %d\n", sphereid_now);
 							//SphereVector[tmp_index].setRadius(SphereVector[tmp_index].getRadius()+0.1);	
@@ -143,8 +144,8 @@ void MousFunc(int button, int state, int x, int y)
 						drawNewStick--;
 				}
 				if (drawNewStick == 1) {
-					if(tmp_index!=tmpSp1 && tmp_index<100)tmpSp2 = tmp_index;
-					if (tmpSp2 != -1 && tmpSp2 != tmpSp1 && SphereVector.size()>1) {
+					if (tmp_index != tmpSp1 && tmp_index < 100)tmpSp2 = tmp_index;
+					if (tmpSp2 != -1 && tmpSp2 != tmpSp1 && SphereVector.size() > 1) {
 						int stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
 						printf("Stick %d created.\n", stnew);
 						StickVector[stnew].setColor(1.0, 1.0, 1.0);
@@ -169,7 +170,7 @@ void MousFunc(int button, int state, int x, int y)
 					Btn[obj_button].OnMouseUp();
 					break;
 				}
-				
+
 				break;
 			}
 		}
@@ -189,18 +190,23 @@ void PassiveMotion(int x, int y)
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);
 	glGetIntegerv(GL_VIEWPORT, viewport);
-	float cx = SphereVector[sphereid_now].getX();
-	float cy = SphereVector[sphereid_now].getY();
-	float cz = SphereVector[sphereid_now].getZ();
-	gluProject(cx, cy, cz, modelview, projection, viewport, &winX, &winY, &winZ);
-	winX = (float)x;
-	winY = (float)viewport[3] - (float)y;
-	//glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
 
-	gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-	//gluUnProject(winX, winY, 1.0, modelview, projection, viewport, &posX2, &posY2, &posZ2);
-	//cout << posX << posY << posZ << endl;
-	//printf("%d %d\n", move_sphere, move_stick);
+	if (SphereVector.size() > 0)
+	{
+		float cx = SphereVector[sphereid_now].getX();
+		float cy = SphereVector[sphereid_now].getY();
+		float cz = SphereVector[sphereid_now].getZ();
+		gluProject(cx, cy, cz, modelview, projection, viewport, &winX, &winY, &winZ);
+		winX = (float)x;
+		winY = (float)viewport[3] - (float)y;
+		//glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+		gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+		//gluUnProject(winX, winY, 1.0, modelview, projection, viewport, &posX2, &posY2, &posZ2);
+		//cout << posX << posY << posZ << endl;
+		//printf("%d %d\n", move_sphere, move_stick);
+	}
+	
 	if (gameState == MAINWINDOW)
 	{
 		if (!move_sphere && !move_stick) {
@@ -223,7 +229,7 @@ void PassiveMotion(int x, int y)
 			redraw();
 		}
 		else if (move_sphere) {
-			if (isLegalToMove(sphereid_now,posX,posY,posZ))
+			if (isLegalToMove(sphereid_now, posX, posY, posZ))
 				SphereVector[sphereid_now].setPosition(posX, posY, posZ);
 		}
 		else {
