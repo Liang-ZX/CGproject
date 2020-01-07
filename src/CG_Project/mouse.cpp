@@ -223,7 +223,7 @@ void PassiveMotion(int x, int y)
 			redraw();
 		}
 		else if (move_sphere) {
-			if (isLegalToMove(sphereid_now))
+			if (isLegalToMove(sphereid_now,posX,posY,posZ))
 				SphereVector[sphereid_now].setPosition(posX, posY, posZ);
 		}
 		else {

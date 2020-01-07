@@ -250,8 +250,8 @@ void Draw_Scene()
 	//Background(backgroundtex);
 
 	int itr;
-	myObjLoader obj0("cube.obj");
-	obj0.Draw();
+	//myObjLoader obj0("cube.obj");
+	//obj0.Draw();
 
 	
 	if (SphereVector.size() > 0)

@@ -1,5 +1,5 @@
 #include"project.h"
-#define INTEVAL 0.1
+#define INTEVAL -0.1
 #define STEP 2.0
 #define VIEW 1.2
 #define SPHERE_INTEVEL 0.1
@@ -28,22 +28,30 @@ bool check_view(int sa) {
 	return dis < rdis + VIEW;
 }
 //检测球是否可以移动
-bool isLegalToMove(int cur) {
+bool isLegalToMove(int cur,GLdouble posX, GLdouble posY, GLdouble posZ) {
 	int size = SphereVector.size();
 		for (int i = 0; i < size; i++) {
-			if (i != cur)
-				if (check_collision(i, cur)) {
-					int xsign = SphereVector[cur].getX() - SphereVector[i].getX() > 0 ? 1 : 0;
-					int ysign = SphereVector[cur].getY() - SphereVector[i].getY() > 0 ? 1 : 0;
+				/*if (check_collision(i, cur)) {
+					//int xsign = SphereVector[cur].getX() - SphereVector[i].getX() > 0 ? 1 : 0;
+					//int ysign = SphereVector[cur].getY() - SphereVector[i].getY() > 0 ? 1 : 0;
 					int zsign = SphereVector[cur].getZ() - SphereVector[i].getZ() > 0 ? 1 : 0;
 					while (check_collision(i,cur)) {
-						SphereVector[cur].changePosition(xsign*SPHERE_INTEVEL, ysign*SPHERE_INTEVEL, zsign*SPHERE_INTEVEL);
-						//printf("CHANGE_SPHERE\n");
+						//SphereVector[cur].changePosition(xsign*SPHERE_INTEVEL, ysign*SPHERE_INTEVEL, zsign*SPHERE_INTEVEL);
+						SphereVector[cur].changePosition(0, 0, zsign*SPHERE_INTEVEL);
+						printf("CHANGE_SPHERE\n");
 					}
 					return false;
-				}
-					
-	}
+				}*/
+			if (i != cur) {
+				GLfloat xdis = SphereVector[i].getX() - posX;
+				GLfloat ydis = SphereVector[i].getY() - posY;
+				GLfloat zdis = SphereVector[i].getZ() - posZ;
+				GLfloat rdis = SphereVector[i].getRadius() + SphereVector[cur].getRadius();
+				GLfloat dis = xdis * xdis + ydis * ydis + zdis * zdis;
+				if (dis < (rdis + INTEVAL)*(rdis + INTEVAL))
+					return false;
+			}				
+		}
 		return true;
 }
 //改变新建球的位置

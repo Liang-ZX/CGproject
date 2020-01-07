@@ -84,7 +84,7 @@ void key(unsigned char k, int x, int y)
 		// change the position of Light:
 				case 'i': {
 			light[light_cur].changePosition(0, LIGHT_STEP, 0); break;
-		}
+				}
 				case 'k': {
 					light[light_cur].changePosition(0, -LIGHT_STEP, 0); break;
 				}

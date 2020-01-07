@@ -2,7 +2,7 @@
 
 bool check_collision(int sa, int sb);
 bool check_view(int sa);
-bool isLegalToMove(int cur);
+bool isLegalToMove(int cur,GLdouble posX, GLdouble posY, GLdouble posZ);
 void changePosition(int cur);
 void changeView();
 bool isLegalToMoveView();
