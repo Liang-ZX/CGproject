@@ -22,6 +22,7 @@ int gameState = GAMESTART;
 
 //background
 SkyBox sky;
+int backgroundid = 1;
 
 // used to indicate click to draw a new sphere or stick
 int drawNewSphere = 0;
@@ -37,7 +38,8 @@ int st1;
 int stickid_now;
 
 //texture
-string othertexture[5] = { "othertexture\\start_image.bmp" , "othertexture\\background.bmp" };
+string othertexture[10] = { "othertexture\\start_image.bmp" , "othertexture\\background.bmp","othertexture\\background2.bmp",
+"othertexture\\background3.bmp","othertexture\\background4.bmp","othertexture\\background5.bmp" };
 string sticktexture[10] = { "sticktexture\\stick.bmp" };
 //string spheretexture[20] = { "spheretexture\\sun.bmp" , "spheretexture\\earth.bmp" , "spheretexture\\jupiter.bmp"
 //, "spheretexture\\mars.bmp","spheretexture\\mercurial.bmp","spheretexture\\moon.bmp" ,"spheretexture\\neptune.bmp"
@@ -48,7 +50,7 @@ string spheretexture[20] = { "spheretexture\\red.bmp" , "spheretexture\\blue.bmp
 };
 
 
-string backgroundtex = othertexture[1];
+
 string sticktex = sticktexture[0];
 //string spheretex1 = texture[1];
 //string spheretex2 = texture[2];
@@ -93,11 +95,13 @@ void main_menu(int value) {
 		glutSwapBuffers();
 		gameState = MAINWINDOW;
 	}
-
+	if (value == 3) {//change background
+		backgroundid++;
+		if (backgroundid == 6) backgroundid = 1;
+	}
 	if (value == 20) {//exit
 		exit(0);
 	}
-
 }
 
 void texture_menu(int value)
@@ -362,7 +366,7 @@ void redraw()
 	}
 	else if (gameState == MAINWINDOW)
 	{
-
+		string backgroundtex = othertexture[backgroundid];
 		Background(backgroundtex);
 		Draw_Scene();						// Draw Scene	
 		commandbox.create();
@@ -416,6 +420,9 @@ int main(int argc, char *argv[])
 
 	glutAddMenuEntry("Clear Screen", 1);//添加菜单项
 	//glutAddMenuEntry("Start Game", 2);
+
+	glutAddMenuEntry("Change background", 3);
+
 	glutAddSubMenu("Size", sub_menu1);
 	glutAddSubMenu("Texture", sub_menu2);
 	//glutAddMenuEntry("Exit", 20);
