@@ -5,7 +5,7 @@
 #define SPHERE_INTEVEL 0.1
 extern vector<Sphere> SphereVector;
 extern float eye[3], r_eye;
-// ¼ì²âÁ½¸öÇòÖ®¼ä£¬true ÎªÅö×²
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ä£¬true Îªï¿½ï¿½×²
 bool check_collision(int sa, int sb) {
 	GLfloat xdis = SphereVector[sa].getX() - SphereVector[sb].getX();
 	GLfloat ydis = SphereVector[sa].getY() - SphereVector[sb].getY();
@@ -27,7 +27,7 @@ bool check_view(int sa) {
 	printf("SPERE:%d,DIS:%f,RDIS:%f\n",sa,dis,rdis);*/
 	return dis < rdis + VIEW;
 }
-//¼ì²âÇòÊÇ·ñ¿ÉÒÔÒÆ¶¯
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 bool isLegalToMove(int cur,GLdouble posX, GLdouble posY, GLdouble posZ) {
 	int size = SphereVector.size();
 		for (int i = 0; i < size; i++) {
@@ -54,7 +54,7 @@ bool isLegalToMove(int cur,GLdouble posX, GLdouble posY, GLdouble posZ) {
 		}
 		return true;
 }
-//¸Ä±äÐÂ½¨ÇòµÄÎ»ÖÃ
+//ï¿½Ä±ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 void changePosition(int cur) {
 	int size = SphereVector.size();
 		for (int i = 0; i < size; i++) {

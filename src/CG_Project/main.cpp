@@ -39,9 +39,14 @@ int stickid_now;
 //texture
 string othertexture[5] = { "othertexture\\start_image.bmp" , "othertexture\\background.bmp" };
 string sticktexture[10] = { "sticktexture\\stick.bmp" };
-string spheretexture[20] = { "spheretexture\\sun.bmp" , "spheretexture\\earth.bmp" , "spheretexture\\jupiter.bmp"
-, "spheretexture\\mars.bmp","spheretexture\\mercurial.bmp","spheretexture\\moon.bmp" ,"spheretexture\\neptune.bmp"
-,"spheretexture\\pluto.bmp", "spheretexture\\saturn.bmp","spheretexture\\vranus.bmp" ,"spheretexture\\venus.bmp" };
+//string spheretexture[20] = { "spheretexture\\sun.bmp" , "spheretexture\\earth.bmp" , "spheretexture\\jupiter.bmp"
+//, "spheretexture\\mars.bmp","spheretexture\\mercurial.bmp","spheretexture\\moon.bmp" ,"spheretexture\\neptune.bmp"
+//,"spheretexture\\pluto.bmp", "spheretexture\\saturn.bmp","spheretexture\\vranus.bmp" ,"spheretexture\\venus.bmp" };
+
+string spheretexture[20] = { "spheretexture\\red.bmp" , "spheretexture\\blue.bmp" , "spheretexture\\yellow.bmp"
+, "spheretexture\\orange.bmp","spheretexture\\pink.bmp","spheretexture\\brown.bmp" ,"spheretexture\\purple.bmp"
+};
+
 
 string backgroundtex = othertexture[1];
 string sticktex = sticktexture[0];

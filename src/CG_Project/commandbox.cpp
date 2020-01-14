@@ -26,7 +26,7 @@ void CommandBox::create()
 	glPushMatrix();
 	glEnable(GL_DEPTH);
 	glDisable(GL_LIGHTING);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(0.0f,0.0f, 0.0f);
 	glRectf(0, 0, 10, 10);
 	Btn[quit_btn].Render();
 	Btn[screenshot_button].Render();
