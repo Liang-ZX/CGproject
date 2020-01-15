@@ -104,6 +104,7 @@ void myObjLoader::Draw() {
 	//draw all faces
 	//glBindTexture(GL_TEXTURE_2D, texture);
 	//glBegin(GL_TRIANGLES);
+	glEnable(GL_DEPTH_TEST);
 	glBegin(GL_QUADS);
 	for (unsigned int i = 0; i < Faces.size(); i++) {
 		//first vertex
@@ -124,4 +125,5 @@ void myObjLoader::Draw() {
 		glVertex3f(Vertices[Faces[i].v[3]].x, Vertices[Faces[i].v[3]].y, Vertices[Faces[i].v[3]].z);
 	}
 	glEnd();
+	glDisable(GL_DEPTH_TEST);
 }

@@ -30,10 +30,12 @@ void CommandBox::create()
 	glRectf(0, 0, 10, 10);
 	Btn[quit_btn].Render();
 	Btn[screenshot_button].Render();
-	Btn[obj_button].Render();
+	//Btn[obj_button].Render();
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 	glPopMatrix();
+
+	showInformation(5, 650);//show the information
 
 	updateView(g_window_width, g_window_height);
 }
