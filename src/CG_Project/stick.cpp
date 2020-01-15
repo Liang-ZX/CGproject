@@ -139,12 +139,12 @@ static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GL
 		//glPointSize(0.4);
 		glBegin(GL_POINTS);
 		int division = 30;
-		for (int i = 0; i <= division; i++)
+		for (int i = 0; i < division; i++)
 		{
 			glEvalCoord1f((GLfloat)i / division);
 		}
 		glEnd();
-		glDisable(GL_MAP2_VERTEX_4);
+		glDisable(GL_MAP1_VERTEX_4);
 
 		int size = glRenderMode(GL_RENDER);
 
@@ -155,30 +155,30 @@ static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GL
 		GLdouble lastx = SphereVector[sp1].getX(), lasty = SphereVector[sp1].getY(), lastz = SphereVector[sp1].getZ();
 
 		glPushMatrix();
+		glMatrixMode(GL_MODELVIEW);
 		glGetIntegerv(GL_VIEWPORT, viewport);  
 		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
 		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
 		glPopMatrix();
 
-		for (int j = 0; j < size / 4; j++)
+		for (int j = 1; j < size / 4; j++)
 		{
 			winx = buffer[j * 4 + 1];
-			winy = g_window_height - buffer[j * 4 + 2];
+			winy = buffer[j * 4 + 2];
 			winz = buffer[j * 4 + 3];
-
+			
 			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz);
-			posz = -posz;
 			
 			GLdouble angle1 = cal_normal(division * (posx - lastx), 0, division * (posz - lastz), 0, 0, 1);
 			GLdouble angle2 = cal_normal(0, division * (posy - lasty), division * (posz - lastz), 0, 0, 1);
 			if (posx - lastx > 0) angle1 = -angle1;
-			if (posy - lasty < 0) angle2 = -angle2;
+			if (posy - lasty > 0) angle2 = -angle2;
 			glPushMatrix();
 			glTranslatef(posx, posy, posz);
 			//glRotatef(90, 1, 0, 0);
 			//glTranslatef(0.0f, 0.0f , -(stlength * 1.3 / division) / 2.0);
-			glRotatef(angle1, 0, -1, 0);
-			//glRotatef(-angle2, 1, 0, 0);
+			if(fabs(posx - lastx) > 0.01) glRotatef(angle1, 0, -1, 0);
+			if(fabs(posy - lasty) > 0.01) glRotatef(angle2, 1, 0, 0);
 			gluCylinder(quad_obj, radius, radius, stlength * 1.3 / division, 150, 200);
 			glPopMatrix();
 
@@ -186,6 +186,7 @@ static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GL
 			lasty = posy;
 			lastz = posz;
 		}
+		glEnd();
 		glPopMatrix();
 	}
 	else {
@@ -197,7 +198,7 @@ static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GL
 			glEvalCoord1f((GLfloat)i / division);
 		}
 		glEnd();
-		glDisable(GL_MAP2_VERTEX_4);
+		glDisable(GL_MAP1_VERTEX_4);
 	}
 	glPopMatrix();
 }
