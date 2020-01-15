@@ -35,7 +35,7 @@ void CommandBox::create()
 	glPopMatrix();
 	glPopMatrix();
 
-	showInformation(5, 650);//show the information
+	showInformation(5, 730);//show the information
 
 	updateView(g_window_width, g_window_height);
 }

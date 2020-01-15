@@ -7,13 +7,13 @@ static GLfloat ctrlpointsA[3][4];
 static GLdouble cal_normal(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLfloat y2, GLfloat z2)
 {	//calculate angle between vectors
 	GLdouble n = x1 * x2 + y1 * y2 + z1 * z2;
-	GLdouble m = sqrt(x1*x1 + y1 * y1 + z1 * z1) + sqrt(x2*x2 + y2 * y2 + z2 * z2);
+	GLdouble m = sqrt(x1*x1 + y1 * y1 + z1 * z1) * sqrt(x2*x2 + y2 * y2 + z2 * z2);
 	return acos(n / m) / PI * 180;
 }
 
 std::vector<Stick> StickVector;
 
-static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius); //direction�ǽ��ϰ��ķ���
+static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GLfloat radius, GLfloat stlength); //flag demonstrates direction 
 
 int Stick::stickcreate(int sp1, int sp2)
 {
@@ -44,7 +44,7 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 
 	if (doublebond == true)
 	{
-
+		/*
 		//used to debug
 		glTranslatef(SphereVector[sp1].getX(), SphereVector[sp1].getY(), SphereVector[sp1].getZ());
 		vecX /= stlength;
@@ -72,9 +72,9 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 		GLdouble slices = 8.0;
 		GLdouble stack = 3.0;
 		gluCylinder(quad_obj, 2*radius, 2*radius, stlength, iSlices, iStacks);
-
-		//drawbond(1, sp1, sp2, quad_obj, radius);	//draw double bonds
-		//drawbond(-1, sp1, sp2, quad_obj, radius);
+		*/
+		drawbond(1, sp1, sp2, quad_obj, radius, stlength);	//draw double bonds
+		drawbond(-1, sp1, sp2, quad_obj, radius, stlength);
 	}
 	else {
 		glTranslatef(SphereVector[sp1].getX(), SphereVector[sp1].getY(), SphereVector[sp1].getZ());
@@ -108,21 +108,21 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 	glPopName();
 }
 
-static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius) //draw one bond
+static void drawbond(int flag, GLint sp1, GLint sp2, GLUquadricObj* quad_obj, GLfloat radius, GLfloat stlength) //draw one bond
 {
-	ctrlpointsA[0][0] = sp1.getX();
-	ctrlpointsA[0][1] = sp1.getY();
-	ctrlpointsA[0][2] = sp1.getZ();
+	ctrlpointsA[0][0] = SphereVector[sp1].getX();
+	ctrlpointsA[0][1] = SphereVector[sp1].getY();
+	ctrlpointsA[0][2] = SphereVector[sp1].getZ();
 	ctrlpointsA[0][3] = 1.0;
 
-	ctrlpointsA[2][0] = sp2.getX();
-	ctrlpointsA[2][1] = sp2.getY();
-	ctrlpointsA[2][2] = sp2.getZ();
+	ctrlpointsA[2][0] = SphereVector[sp2].getX();
+	ctrlpointsA[2][1] = SphereVector[sp2].getY();
+	ctrlpointsA[2][2] = SphereVector[sp2].getZ();
 	ctrlpointsA[2][3] = 1.0;
 
-	ctrlpointsA[1][0] = (sp1.getX() + sp2.getX()) / 2.0;
-	ctrlpointsA[1][1] = (sp1.getY() + sp2.getY()) / 2.0;
-	ctrlpointsA[1][2] = (sp1.getZ() + sp2.getZ()) / 2.0 + 0.5 * flag;
+	ctrlpointsA[1][0] = (SphereVector[sp1].getX() + SphereVector[sp2].getX()) / 2.0;
+	ctrlpointsA[1][1] = (SphereVector[sp1].getY() + SphereVector[sp2].getY()) / 2.0;
+	ctrlpointsA[1][2] = (SphereVector[sp1].getZ() + SphereVector[sp2].getZ()) / 2.0 + 0.5 * flag;
 	ctrlpointsA[1][3] = 1.0;
 
 	glPushMatrix();
@@ -152,28 +152,34 @@ static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, 
 
 		GLfloat winx, winy, winz;
 		GLdouble posx, posy, posz;
-		GLdouble lastx = sp1.getX(), lasty = sp1.getY(), lastz = sp1.getZ();
+		GLdouble lastx = SphereVector[sp1].getX(), lasty = SphereVector[sp1].getY(), lastz = SphereVector[sp1].getZ();
 
 		glPushMatrix();
-		glGetIntegerv(GL_VIEWPORT, viewport);   // ��ȡ�������� 
+		glGetIntegerv(GL_VIEWPORT, viewport);  
 		glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
 		glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
 		glPopMatrix();
 
-		for (int j = 0; j < size / 4 - 1; j++)
+		for (int j = 0; j < size / 4; j++)
 		{
 			winx = buffer[j * 4 + 1];
 			winy = g_window_height - buffer[j * 4 + 2];
 			winz = buffer[j * 4 + 3];
 
-			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz); // ��ȡ��ά���� 
+			gluUnProject(winx, winy, winz, mvmatrix, projmatrix, viewport, &posx, &posy, &posz);
 			posz = -posz;
-			GLdouble angle = cal_normal(division * (posx - lastx), division * (posy - lasty), division * (posz - lastz), 0, 1, 0);
+			
+			GLdouble angle1 = cal_normal(division * (posx - lastx), 0, division * (posz - lastz), 0, 0, 1);
+			GLdouble angle2 = cal_normal(0, division * (posy - lasty), division * (posz - lastz), 0, 0, 1);
+			if (posx - lastx > 0) angle1 = -angle1;
+			if (posy - lasty < 0) angle2 = -angle2;
 			glPushMatrix();
 			glTranslatef(posx, posy, posz);
-			glRotatef(angle, 0, 0, 1);
-			glRotatef(-90, 1, 0, 0);
-			gluCylinder(quad_obj, radius, radius, 0.1, 150, 200);
+			//glRotatef(90, 1, 0, 0);
+			//glTranslatef(0.0f, 0.0f , -(stlength * 1.3 / division) / 2.0);
+			glRotatef(angle1, 0, -1, 0);
+			//glRotatef(-angle2, 1, 0, 0);
+			gluCylinder(quad_obj, radius, radius, stlength * 1.3 / division, 150, 200);
 			glPopMatrix();
 
 			lastx = posx;
