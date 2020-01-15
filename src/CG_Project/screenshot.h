@@ -1,6 +1,6 @@
 #pragma once
 
-static class screenshot
+class screenshot
 {
 public:
 	static void getBuffer(int width, int height, vector<unsigned char>& buf);
