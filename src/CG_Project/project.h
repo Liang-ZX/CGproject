@@ -43,6 +43,7 @@ extern bool bPersp;
 extern bool bAnim;
 extern bool bLoad;
 extern int gameState;
+extern GLdouble rotate_theta;
 
 // used to indicate click to draw a new sphere or stick
 extern int drawNewSphere;

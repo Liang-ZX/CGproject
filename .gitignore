@@ -5,3 +5,5 @@ src/CG_Project/screenshot/*
 src/CG_Project/x64/*
 src/Debug/*
 src/.vs/*
+src/Release/*
+src/CG_Project/Release/*
