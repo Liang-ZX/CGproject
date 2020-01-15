@@ -15,7 +15,7 @@ std::vector<Stick> StickVector;
 
 static void drawbond(int flag, Sphere sp1, Sphere sp2, GLUquadricObj* quad_obj, GLfloat radius); //direction�ǽ��ϰ��ķ���
 
-int Stick::stickcreate(Sphere sp1, Sphere sp2)
+int Stick::stickcreate(int sp1, int sp2)
 {
 	Stick tmp = Stick(count++, sp1, sp2);
 	StickVector.push_back(tmp);
@@ -25,9 +25,9 @@ int Stick::stickcreate(Sphere sp1, Sphere sp2)
 
 void Stick::Draw(GLint iSlices, GLint iStacks)
 {
-	GLfloat vecX = sp2.getX() - sp1.getX();
-	GLfloat vecY = sp2.getY() - sp1.getY();
-	GLfloat vecZ = sp2.getZ() - sp1.getZ();
+	GLfloat vecX = SphereVector[sp2].getX() - SphereVector[sp1].getX();
+	GLfloat vecY = SphereVector[sp2].getY() - SphereVector[sp1].getY();
+	GLfloat vecZ = SphereVector[sp2].getZ() - SphereVector[sp1].getZ();
 	GLfloat stlength = sqrt(vecX * vecX + vecY * vecY + vecZ * vecZ);
 
 	static GLUquadricObj* quad_obj = NULL;
@@ -46,7 +46,7 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 	{
 
 		//used to debug
-		glTranslatef(sp1.getX(), sp1.getY(), sp1.getZ());
+		glTranslatef(SphereVector[sp1].getX(), SphereVector[sp1].getY(), SphereVector[sp1].getZ());
 		vecX /= stlength;
 		vecY /= stlength;
 		vecZ /= stlength;
@@ -73,12 +73,11 @@ void Stick::Draw(GLint iSlices, GLint iStacks)
 		GLdouble stack = 3.0;
 		gluCylinder(quad_obj, 2*radius, 2*radius, stlength, iSlices, iStacks);
 
-
 		//drawbond(1, sp1, sp2, quad_obj, radius);	//draw double bonds
 		//drawbond(-1, sp1, sp2, quad_obj, radius);
 	}
 	else {
-		glTranslatef(sp1.getX(), sp1.getY(), sp1.getZ());
+		glTranslatef(SphereVector[sp1].getX(), SphereVector[sp1].getY(), SphereVector[sp1].getZ());
 		vecX /= stlength;
 		vecY /= stlength;
 		vecZ /= stlength;

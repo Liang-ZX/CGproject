@@ -146,7 +146,7 @@ void MousFunc(int button, int state, int x, int y)
 				if (drawNewStick == 1) {
 					if (tmp_index != tmpSp1 && tmp_index < 100)tmpSp2 = tmp_index;
 					if (tmpSp2 != -1 && tmpSp2 != tmpSp1 && SphereVector.size() > 1) {
-						int stnew = Stick::stickcreate(SphereVector[tmpSp1], SphereVector[tmpSp2]);
+						int stnew = Stick::stickcreate(tmpSp1, tmpSp2);
 						printf("Stick %d created.\n", stnew);
 						StickVector[stnew].setColor(1.0, 1.0, 1.0);
 						StickVector[stnew].setRadius(0.13);

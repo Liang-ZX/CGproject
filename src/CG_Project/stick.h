@@ -17,8 +17,8 @@ private:
 	int id;
 	bool doublebond;
 	// generate the stick according to the corresponding spheres
-	Sphere sp1;
-	Sphere sp2;	
+	int sp1;
+	int sp2;	
 
 	GLfloat color[3];
 	GLfloat radius;
@@ -27,9 +27,9 @@ private:
 
 public:
 	static int count;
-	static int stickcreate(Sphere sp1, Sphere sp2);
+	static int stickcreate(int sp1, int sp2);
 	Stick() {};
-	Stick(int id, Sphere sp1, Sphere sp2)
+	Stick(int id, int sp1, int sp2)
 	{
 		this->id = id;
 		this->sp1 = sp1;
