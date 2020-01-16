@@ -23,7 +23,7 @@ public:
 
 class myObjLoader {
 public:
-	myObjLoader(string objfilename);
+	myObjLoader(string objfilename, int t);
 	void Draw();
 private:
 	vector<Vertex3f> Vertices;
@@ -31,5 +31,6 @@ private:
 	vector<Vertex3f> Normals;
 	vector<Face> Faces;
 	GLuint texture;
+	int facetype = 4;
 };
 
