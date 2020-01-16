@@ -2,7 +2,7 @@
 ## 面向物质结构三维建模的计算机辅助设计
 2019-2020 CG project in ZJU
 
-<div align=center>![ethanol(C2H5O)][https://raw.githubusercontent.com/Liang-ZX/CGproject/master/display.png]
+<div align=center>![ethanol(C2H5O)](https://raw.githubusercontent.com/Liang-ZX/CGproject/master/display.png)</div>
 
 ## Function(功能界定)
 
